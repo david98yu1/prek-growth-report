@@ -1,0 +1,2117 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PreK 成长测评</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="PreK 测评报告数字化概念演示：记录老师在线填写、AI 整理语音备注、家长端成长报告与顾问跟进。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" media="print" onload="this.media='all'">
+<style>
+/* Layout: a "graph-paper" stage. Desktop = journey guide column + a phone that runs the product.
+   Phone width = the product itself, full-bleed. */
+:root {
+  --bg: #f5b14b;
+  --stripe: #f7bd66;
+  --paper: #fff9e8;
+  --grid: rgba(255, 255, 255, 0.0);
+  --surface: #ffffff;
+  --surface-2: #fff6e0;
+  --surface-3: #fbeccb;
+  --ink: #2b241d;
+  --ink-2: #5a5047;
+  --ink-3: #8a7e72;
+  --line: #f0e3c4;
+  --accent: #e0661b;
+  --accent-ink: #ffffff;
+  --accent-soft: #fde6d0;
+  --brand: #f5a83a;
+  --brand-green: #275939;
+  --brand-cream: #fdf7df;
+  --brand-coral: #ec7e72;
+  --brand-yellow: #eece73;
+  --brand-blue: #dfeefd;
+  --wx: #07c160;
+  --wx-soft: #e2f5e7;
+  --chat-bg: #f2ede3;
+  --bubble-sent: #95ec69;
+  --bubble-sent-ink: #12220b;
+  --bubble-recv: #ffffff;
+  --bubble-recv-ink: #2b241d;
+  --dim-num: #4aa267;
+  --dim-spa: #4f5ba6;
+  --dim-rea: #7d5fa8;
+  --dim-mea: #3c84c2;
+  --dim-exp: #d65f5c;
+  --dim-cre: #dc8233;
+  --good: #2f8a4f;
+  --warn: #b7790c;
+  --bad: #c9473f;
+  --band: rgba(108, 165, 213, 0.18);
+  --child: #f08a24;
+  --scrim: rgba(43, 30, 15, 0.45);
+  --hud: rgba(40, 33, 26, 0.88);
+  --hud-ink: #ffffff;
+  --bezel: #2b2118;
+  --shadow: 0 24px 60px rgba(120, 66, 10, 0.28), 0 2px 6px rgba(120, 66, 10, 0.12);
+  --shadow-sm: 0 1px 2px rgba(120, 66, 10, 0.06), 0 3px 10px rgba(120, 66, 10, 0.07);
+  --font-display: "Baloo 2", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+  --gl: max(16px, env(safe-area-inset-left, 0px));
+  --gr: max(16px, env(safe-area-inset-right, 0px));
+  --r-lg: 22px;
+  --r-md: 12px;
+  --r-sm: 8px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #3a2610;
+    --stripe: #432c13;
+    --paper: #241c14;
+    --grid: rgba(255, 255, 255, 0.0);
+    --surface: #2a2219;
+    --surface-2: #1d1712;
+    --surface-3: #3a2f23;
+    --ink: #f6eee2;
+    --ink-2: #cdbfae;
+    --ink-3: #9c8e7e;
+    --line: #43372a;
+    --accent: #f59a4a;
+    --accent-ink: #2a1505;
+    --accent-soft: #4a2e16;
+    --brand: #f5a83a;
+    --brand-green: #2f6b45;
+    --brand-cream: #2a2219;
+    --brand-coral: #f0928a;
+    --brand-yellow: #e8c66a;
+    --brand-blue: #22303f;
+    --wx: #2fbf6c;
+    --wx-soft: #18301f;
+    --chat-bg: #15110d;
+    --bubble-sent: #3eb575;
+    --bubble-sent-ink: #04140a;
+    --bubble-recv: #2f2820;
+    --bubble-recv-ink: #f6eee2;
+    --dim-num: #79c98f;
+    --dim-spa: #9aa4ec;
+    --dim-rea: #b79be0;
+    --dim-mea: #7cb9ec;
+    --dim-exp: #f0928f;
+    --dim-cre: #f2aa66;
+    --good: #6cc98a;
+    --warn: #e0a73c;
+    --bad: #f0928f;
+    --band: rgba(124, 185, 236, 0.16);
+    --child: #f5a83a;
+    --scrim: rgba(0, 0, 0, 0.6);
+    --hud: rgba(60, 52, 44, 0.94);
+    --bezel: #000000;
+    --shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.4);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #3a2610;
+  --stripe: #432c13;
+  --paper: #241c14;
+  --grid: rgba(255, 255, 255, 0.0);
+  --surface: #2a2219;
+  --surface-2: #1d1712;
+  --surface-3: #3a2f23;
+  --ink: #f6eee2;
+  --ink-2: #cdbfae;
+  --ink-3: #9c8e7e;
+  --line: #43372a;
+  --accent: #f59a4a;
+  --accent-ink: #2a1505;
+  --accent-soft: #4a2e16;
+  --brand: #f5a83a;
+  --brand-green: #2f6b45;
+  --brand-cream: #2a2219;
+  --brand-coral: #f0928a;
+  --brand-yellow: #e8c66a;
+  --brand-blue: #22303f;
+  --wx: #2fbf6c;
+  --wx-soft: #18301f;
+  --chat-bg: #15110d;
+  --bubble-sent: #3eb575;
+  --bubble-sent-ink: #04140a;
+  --bubble-recv: #2f2820;
+  --bubble-recv-ink: #f6eee2;
+  --dim-num: #79c98f;
+  --dim-spa: #9aa4ec;
+  --dim-rea: #b79be0;
+  --dim-mea: #7cb9ec;
+  --dim-exp: #f0928f;
+  --dim-cre: #f2aa66;
+  --good: #6cc98a;
+  --warn: #e0a73c;
+  --bad: #f0928f;
+  --band: rgba(124, 185, 236, 0.16);
+  --child: #f5a83a;
+  --scrim: rgba(0, 0, 0, 0.6);
+  --hud: rgba(60, 52, 44, 0.94);
+  --bezel: #000000;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+button, input, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3, h4 { margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.num { font-variant-numeric: tabular-nums; }
+.disp { font-family: var(--font-display); letter-spacing: -0.01em; }
+
+/* ---------- App shell ---------- */
+.app {
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(300px, 400px) 1fr;
+  grid-template-rows: minmax(0, 1fr);
+  overflow: hidden;
+  background-color: var(--bg);
+  background-image: repeating-linear-gradient(135deg, var(--stripe) 0 14px, transparent 14px 28px);
+}
+.guide {
+  height: 100%;
+  overflow-y: auto;
+  padding-block: 28px 28px;
+  padding-left: max(28px, env(safe-area-inset-left, 0px));
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+}
+.stage {
+  height: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  place-items: center;
+  padding: 20px;
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+.phone {
+  position: relative;
+  width: 390px;
+  max-width: 100%;
+  height: min(820px, calc(100% - 20px));
+  border-radius: 46px;
+  background: var(--surface-2);
+  box-shadow: 0 0 0 10px var(--bezel), var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+}
+.phone-status {
+  flex: none;
+  height: 44px;
+  padding: 14px 28px 0 34px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--status-bg, var(--surface));
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.phone-status .sys { display: flex; gap: 6px; align-items: center; }
+.phone-status svg { display: block; }
+.screen {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+.scr { min-height: 100%; display: flex; flex-direction: column; }
+.talkbar, .sendbar { margin-top: auto; }
+.screen:focus { outline: none; }
+.layer { position: absolute; inset: 0; pointer-events: none; z-index: 30; }
+.layer > * { pointer-events: auto; }
+.guide-fab { display: none; }
+
+/* ---------- Guide (left column) ---------- */
+.g-brand { display: flex; flex-direction: column; gap: 10px; }
+.g-kicker { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+.g-title { font-family: var(--font-display); font-size: 30px; line-height: 1.12; font-weight: 750; letter-spacing: -0.02em; }
+.g-title small { display: block; font-size: 15px; font-weight: 500; color: var(--ink-2); letter-spacing: 0; margin-top: 8px; font-family: var(--font-body); line-height: 1.5; }
+.g-status { display: flex; flex-wrap: wrap; gap: 6px; }
+.g-pill { font-size: 12px; padding: 3px 9px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--ink-2); display: inline-flex; align-items: center; gap: 6px; }
+.g-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-3); display: inline-block; }
+.g-pill.on i { background: var(--good); }
+.g-steps { display: flex; flex-direction: column; gap: 0; position: relative; }
+.g-step {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  text-align: left;
+  padding: 10px 10px 10px 0;
+  border-radius: 14px;
+  position: relative;
+}
+.g-step::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 40px;
+  bottom: -10px;
+  width: 2px;
+  background: var(--line);
+}
+.g-step:last-child::before { display: none; }
+.g-dot {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--surface); border: 2px solid var(--line);
+  font-weight: 700; font-size: 14px; color: var(--ink-2);
+  position: relative; z-index: 1;
+  font-variant-numeric: tabular-nums;
+}
+.g-step.done .g-dot { border-color: var(--good); color: var(--good); }
+.g-step.active .g-dot { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+.g-step-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.g-role { font-size: 12px; font-weight: 600; color: var(--ink-3); }
+.g-role b { font-weight: 700; padding: 1px 7px; border-radius: 6px; margin-right: 6px; font-size: 11px; }
+.role-parent { background: var(--accent-soft); color: var(--accent); }
+.role-teacher { background: var(--wx-soft); color: var(--good); }
+.role-sales { background: var(--surface-3); color: var(--ink-2); }
+.g-step-title { font-weight: 650; font-size: 15px; }
+.g-step:hover .g-step-title { text-decoration: underline; text-underline-offset: 3px; }
+.g-step.active .g-step-title { color: var(--ink); }
+.g-tips {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 10px;
+  box-shadow: var(--shadow-sm);
+}
+.g-tips h3 { font-size: 13px; letter-spacing: 0.08em; color: var(--ink-3); font-weight: 650; }
+.g-tips ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--ink-2); }
+.g-tips li::marker { color: var(--ink-3); }
+.g-tips .try { color: var(--ink); }
+.g-foot { margin-top: auto; display: flex; flex-direction: column; gap: 10px; font-size: 12px; color: var(--ink-3); }
+.g-foot button { align-self: flex-start; font-size: 13px; color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- Shared product UI ---------- */
+.bar {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  padding: 10px var(--gr) 10px var(--gl);
+  display: flex; align-items: center; gap: 10px;
+  min-height: 48px;
+}
+.bar h1 { font-size: 16px; font-weight: 650; flex: 1; min-width: 0; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar .side { width: 64px; display: flex; align-items: center; }
+.bar .side.r { justify-content: flex-end; }
+.icon-btn { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; color: var(--ink); }
+.icon-btn:hover { background: var(--surface-3); }
+.wxbar { background: var(--surface-3); border-bottom: 0; }
+.wxbar h1 { font-size: 15px; font-weight: 600; }
+.pad { padding: 16px var(--gr) 16px var(--gl); }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.row { display: flex; align-items: center; gap: 10px; }
+.between { justify-content: space-between; }
+.wrap { flex-wrap: wrap; }
+.grow { flex: 1; min-width: 0; }
+.muted { color: var(--ink-2); }
+.faint { color: var(--ink-3); }
+.small { font-size: 13px; }
+.tiny { font-size: 12px; }
+.card {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.card.flat { box-shadow: none; }
+.sec-title { font-size: 17px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.sec-title .mk { width: 4px; height: 16px; border-radius: 2px; background: var(--ink); }
+.sec-sub { font-size: 13px; color: var(--ink-3); }
+.hr { height: 1px; background: var(--line); }
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 999px;
+  font-size: 13px; line-height: 1.3;
+  background: var(--surface-3); color: var(--ink-2);
+  border: 1px solid transparent;
+}
+button.chip:hover { border-color: var(--line); }
+.chip.on { background: var(--ink); color: var(--surface); }
+.chip.dim { background: color-mix(in srgb, var(--c) 14%, transparent); color: var(--c); font-weight: 600; }
+.badge {
+  display: inline-flex; align-items: center;
+  font-size: 12px; font-weight: 700;
+  padding: 2px 8px; border-radius: 6px;
+  background: color-mix(in srgb, var(--c, var(--ink)) 14%, transparent);
+  color: var(--c, var(--ink));
+  white-space: nowrap;
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 46px; padding: 0 18px; border-radius: 12px;
+  font-weight: 650; font-size: 15px;
+  background: var(--surface-3); color: var(--ink);
+  transition: transform 0.08s ease, filter 0.15s ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn:hover { filter: brightness(0.97); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.wx { background: var(--wx); color: #ffffff; }
+.btn.ink { background: var(--ink); color: var(--surface); }
+.btn.ghost { background: transparent; border: 1px solid var(--line); }
+.btn.block { width: 100%; }
+.btn.sm { height: 34px; padding: 0 12px; font-size: 13px; border-radius: 9px; }
+.btn[disabled] { opacity: 0.45; pointer-events: none; }
+.link { color: var(--accent); font-weight: 600; }
+.seg { display: inline-flex; background: var(--surface-3); border-radius: 9px; padding: 2px; }
+.seg button { padding: 4px 10px; border-radius: 7px; font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.seg button.on { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-sm); }
+.switch { width: 46px; height: 28px; border-radius: 999px; background: var(--line); position: relative; flex: none; transition: background 0.2s; }
+.switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.25); transition: transform 0.2s; }
+.switch.on { background: var(--wx); }
+.switch.on::after { transform: translateX(18px); }
+.avatar {
+  width: 40px; height: 40px; border-radius: 10px; flex: none;
+  display: grid; place-items: center;
+  font-weight: 700; color: #ffffff; font-size: 16px;
+  background: var(--c, var(--dim-spa));
+}
+.avatar.round { border-radius: 50%; }
+.avatar.lg { width: 56px; height: 56px; font-size: 22px; border-radius: 16px; }
+
+/* ---------- Consent (parent, before test) ---------- */
+.hero-strip { background: var(--surface); padding: 18px var(--gr) 18px var(--gl); display: flex; flex-direction: column; gap: 10px; }
+.appt { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 14px; }
+.appt dt { color: var(--ink-3); }
+.appt dd { margin: 0; font-weight: 600; }
+.q-label { font-weight: 650; font-size: 15px; }
+.opt-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.opt {
+  padding: 8px 14px; border-radius: 10px; font-size: 14px;
+  border: 1px solid var(--line); background: var(--surface);
+}
+.opt.on { border-color: var(--ink); background: var(--ink); color: var(--surface); font-weight: 600; }
+.consent-row { display: flex; gap: 12px; align-items: flex-start; }
+.consent-row .grow p { font-size: 13px; color: var(--ink-2); margin-top: 2px; }
+.facts { display: grid; grid-template-columns: 64px 1fr; gap: 6px 10px; font-size: 13px; background: var(--surface-2); border-radius: 12px; padding: 12px; }
+.facts dt { color: var(--ink-3); }
+.facts dd { margin: 0; color: var(--ink); }
+
+/* ---------- Teacher: list ---------- */
+.t-head { background: var(--surface); padding: 16px var(--gr) 14px var(--gl); display: flex; flex-direction: column; gap: 4px; }
+.t-head h2 { font-size: 22px; font-weight: 750; font-family: var(--font-display); }
+.kid-card { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; text-align: left; }
+.kid-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.status-dot { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
+.status-dot i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+
+/* ---------- Teacher: live ---------- */
+.live-top { position: sticky; top: 0; z-index: 12; background: var(--surface); border-bottom: 1px solid var(--line); }
+.live-top .bar { position: static; border-bottom: 0; }
+.qstrip { display: flex; gap: 6px; overflow-x: auto; padding: 2px var(--gr) 12px var(--gl); scrollbar-width: none; }
+.qstrip::-webkit-scrollbar { display: none; }
+.qdot {
+  flex: none; width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 12px; font-weight: 700;
+  border: 2px solid var(--line); color: var(--ink-3); background: var(--surface);
+  font-variant-numeric: tabular-nums;
+}
+.qdot.rated { background: color-mix(in srgb, var(--c) 16%, var(--surface)); border-color: color-mix(in srgb, var(--c) 45%, transparent); color: var(--c); }
+.qdot.cur { border-color: var(--ink); color: var(--ink); box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--ink); }
+.qdot.wrap { width: auto; padding: 0 10px; border-radius: 15px; }
+.task-card { background: var(--surface); border-radius: var(--r-lg); padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.task-title { font-size: 20px; font-weight: 750; }
+.say { background: var(--surface-2); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 4px; }
+.say .en { font-weight: 600; font-size: 15px; }
+.say .zh { font-size: 13px; color: var(--ink-2); }
+.say .lbl { font-size: 11px; letter-spacing: 0.08em; color: var(--ink-3); font-weight: 700; }
+.item-label { display: flex; align-items: center; gap: 8px; font-weight: 650; font-size: 14px; }
+.rubric { display: flex; flex-direction: column; gap: 6px; }
+.rub {
+  display: grid; grid-template-columns: 58px 1fr; gap: 10px; align-items: start;
+  text-align: left; padding: 10px 12px; border-radius: 12px;
+  border: 1.5px solid var(--line); background: var(--surface);
+  font-size: 13.5px; line-height: 1.45; color: var(--ink-2);
+}
+.rub b { font-size: 13px; color: var(--ink); font-weight: 700; padding-top: 1px; }
+.rub:hover { border-color: color-mix(in srgb, var(--c) 40%, var(--line)); }
+.rub.on { border-color: var(--c); background: color-mix(in srgb, var(--c) 9%, var(--surface)); color: var(--ink); }
+.rub.on b { color: var(--c); }
+.rub .old { font-size: 11px; color: var(--ink-3); font-weight: 600; display: block; }
+.task-nav { display: flex; gap: 10px; }
+.task-nav .btn { flex: 1; }
+
+/* WeChat-style note thread */
+.thread { background: var(--chat-bg); border-radius: var(--r-lg); padding: 14px 12px; display: flex; flex-direction: column; gap: 14px; }
+.thread-empty { text-align: center; font-size: 13px; color: var(--ink-3); padding: 6px 0; }
+.msg { display: flex; gap: 8px; align-items: flex-start; max-width: 100%; }
+.msg.sent { flex-direction: row-reverse; }
+.msg .avatar { width: 36px; height: 36px; border-radius: 6px; font-size: 14px; }
+.msg-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; max-width: calc(100% - 52px); }
+.msg.sent .msg-body { align-items: flex-end; }
+.voice {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 40px; padding: 0 14px; border-radius: 6px;
+  background: var(--bubble-recv); color: var(--bubble-recv-ink);
+  font-size: 15px; min-width: 76px; max-width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+.voice::before {
+  content: ""; position: absolute; top: 13px; left: -5px;
+  border: 6px solid transparent; border-left: 0; border-right-color: var(--bubble-recv);
+}
+.msg.sent .voice { background: var(--bubble-sent); color: var(--bubble-sent-ink); flex-direction: row-reverse; }
+.msg.sent .voice::before { left: auto; right: -5px; border-right: 0; border-left: 6px solid var(--bubble-sent); border-top-color: transparent; border-bottom-color: transparent; }
+.voice .waves { width: 18px; height: 18px; flex: none; }
+.msg.sent .voice .waves { transform: scaleX(-1); }
+.voice.playing .waves .w2 { animation: blink 0.9s infinite 0.15s; }
+.voice.playing .waves .w3 { animation: blink 0.9s infinite 0.3s; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.15; } }
+.voice .dur { font-weight: 500; }
+.voice .unread { position: absolute; right: -14px; top: 16px; width: 8px; height: 8px; border-radius: 50%; background: var(--bad); }
+.msg.sent .voice .unread { display: none; }
+.bubble-text {
+  background: var(--surface); color: var(--ink);
+  border-radius: 10px; padding: 10px 12px;
+  font-size: 14px; line-height: 1.55;
+  border: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 8px;
+  text-align: left;
+}
+.msg.sent .bubble-text { background: var(--surface); }
+.bubble-text .raw { font-size: 13px; color: var(--ink-3); border-left: 2px solid var(--line); padding-left: 8px; }
+.ai-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12px; color: var(--ink-3); }
+.ai-row .ai { display: inline-flex; align-items: center; gap: 4px; color: var(--good); font-weight: 600; }
+.ai-row .ai.pending { color: var(--warn); }
+.ai-row button { color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; }
+.typing::after { content: "▍"; animation: blink 0.8s infinite; margin-left: 1px; }
+.thinking { display: inline-flex; gap: 3px; }
+.thinking i { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: blink 1s infinite; }
+.thinking i:nth-child(2) { animation-delay: 0.15s; }
+.thinking i:nth-child(3) { animation-delay: 0.3s; }
+
+/* Bottom talk bar */
+.talkbar {
+  position: sticky; bottom: 0; z-index: 12;
+  background: var(--surface-3);
+  border-top: 1px solid var(--line);
+  padding: 8px var(--gr) calc(8px + env(safe-area-inset-bottom, 0px)) var(--gl);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.talk-row { display: flex; align-items: center; gap: 8px; }
+.round-btn { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--ink-2); display: grid; place-items: center; flex: none; color: var(--ink); }
+.talk-btn {
+  flex: 1; height: 42px; border-radius: 8px;
+  background: var(--surface); font-weight: 650; font-size: 15px;
+  user-select: none; -webkit-user-select: none; touch-action: none;
+  border: 1px solid var(--line);
+}
+.talk-btn.down { background: var(--line); }
+.talk-input { flex: 1; height: 42px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); padding: 0 12px; min-width: 0; }
+.talk-hint { font-size: 11.5px; color: var(--ink-3); display: flex; justify-content: space-between; gap: 8px; }
+.talk-hint button { color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; }
+.rec-hud {
+  position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%);
+  width: 220px; border-radius: 16px; background: var(--hud); color: var(--hud-ink);
+  padding: 18px 16px 14px; display: flex; flex-direction: column; align-items: center; gap: 10px;
+  text-align: center;
+}
+.rec-hud.cancel { background: color-mix(in srgb, var(--bad) 88%, #000000); }
+.rec-wave { display: flex; gap: 3px; align-items: center; height: 34px; }
+.rec-wave i { width: 3px; border-radius: 2px; background: var(--hud-ink); animation: wave 0.9s ease-in-out infinite; }
+@keyframes wave { 0%, 100% { height: 6px; } 50% { height: 30px; } }
+.rec-text { font-size: 13px; line-height: 1.5; min-height: 20px; max-height: 120px; overflow: hidden; opacity: 0.92; }
+.rec-hint { font-size: 12px; opacity: 0.75; }
+.rec-time { font-size: 12px; opacity: 0.75; font-variant-numeric: tabular-nums; }
+
+/* Qualities */
+.qual { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
+.qual:first-child { border-top: 0; }
+.qual .seg button { font-size: 12px; padding: 4px 8px; }
+
+/* ---------- Review ---------- */
+.gen { display: flex; flex-direction: column; gap: 10px; padding: 28px 16px; align-items: stretch; }
+.gen-step { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-3); }
+.gen-step.done { color: var(--ink); }
+.gen-step .ck { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; flex: none; }
+.gen-step.done .ck { background: var(--good); border-color: var(--good); color: #ffffff; }
+.draft { background: var(--surface); border-radius: var(--r-lg); padding: 16px; display: flex; flex-direction: column; gap: 10px; border: 1.5px solid transparent; }
+.draft.ok { border-color: color-mix(in srgb, var(--good) 50%, transparent); }
+.draft-h { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.draft-h h3 { font-size: 15px; font-weight: 700; }
+.src { display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; color: var(--ink-3); align-items: center; }
+.src span { background: var(--surface-2); padding: 2px 7px; border-radius: 6px; }
+.draft-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.edit-area { width: 100%; min-height: 84px; border-radius: 10px; border: 1.5px solid var(--accent); padding: 10px; background: var(--surface); resize: vertical; line-height: 1.55; }
+.sendbar { position: sticky; bottom: 0; z-index: 12; background: var(--surface); border-top: 1px solid var(--line); padding: 10px var(--gr) calc(10px + env(safe-area-inset-bottom, 0px)) var(--gl); display: flex; align-items: center; gap: 10px; }
+.timer-chip { font-size: 12px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+/* Sent: WeChat chat preview */
+.wx-chat { background: var(--chat-bg); border-radius: var(--r-lg); padding: 14px 12px 18px; display: flex; flex-direction: column; gap: 12px; }
+.wx-time { text-align: center; font-size: 12px; color: var(--ink-3); }
+.wx-card {
+  background: var(--bubble-recv); color: var(--bubble-recv-ink);
+  border-radius: 8px; padding: 12px; width: 240px; max-width: 100%;
+  display: flex; flex-direction: column; gap: 8px; text-align: left;
+  position: relative;
+}
+.wx-card::before { content: ""; position: absolute; top: 13px; left: -5px; border: 6px solid transparent; border-left: 0; border-right-color: var(--bubble-recv); }
+.wx-card h4 { font-size: 15px; font-weight: 600; line-height: 1.35; }
+.wx-card .d { display: grid; grid-template-columns: 1fr 52px; gap: 8px; font-size: 12.5px; color: var(--ink-3); line-height: 1.45; }
+.wx-card .thumb { width: 52px; height: 52px; border-radius: 4px; background: var(--surface-2); display: grid; place-items: center; overflow: hidden; }
+.wx-card .from { border-top: 1px solid var(--line); padding-top: 6px; font-size: 11px; color: var(--ink-3); }
+
+/* ---------- Parent report ---------- */
+.rp-hero { background: var(--surface); padding: 18px var(--gr) 18px var(--gl); display: flex; flex-direction: column; gap: 14px; }
+.rp-kid { display: flex; align-items: center; gap: 12px; }
+.rp-name { font-family: var(--font-display); font-size: 26px; font-weight: 750; line-height: 1.1; letter-spacing: -0.02em; }
+.rp-meta { font-size: 13px; color: var(--ink-3); }
+.teacher-say { display: flex; gap: 10px; align-items: flex-start; }
+.teacher-say .msg-body { max-width: calc(100% - 46px); }
+.summary-text { font-size: 16.5px; line-height: 1.6; font-weight: 600; color: var(--ink); }
+.key3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.key {
+  border-radius: 12px; padding: 10px; background: var(--surface-2);
+  display: flex; flex-direction: column; gap: 3px; min-width: 0; text-align: left;
+}
+.key .k { font-size: 11.5px; color: var(--ink-3); font-weight: 600; }
+.key .v { font-size: 14px; font-weight: 700; line-height: 1.3; color: var(--c, var(--ink)); }
+.rp-sec { padding: 0 var(--gr) 0 var(--gl); margin-top: 14px; }
+.rp-sec > .card { gap: 14px; }
+.radar-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.radar { width: 100%; max-width: 360px; height: auto; overflow: visible; }
+.radar text { font-family: var(--font-body); }
+.radar .axis-btn { cursor: pointer; }
+.radar .axis-btn:hover text.lab { text-decoration: underline; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; font-size: 12px; color: var(--ink-3); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 14px; height: 10px; border-radius: 3px; display: inline-block; }
+.lvl-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; }
+.lvl-item { display: flex; align-items: center; justify-content: space-between; gap: 6px; font-size: 13px; padding: 6px 0; border-bottom: 1px dashed var(--line); text-align: left; }
+.levelbar { display: inline-grid; grid-template-columns: repeat(4, 10px); gap: 2px; }
+.levelbar i { height: 6px; border-radius: 2px; background: var(--line); }
+.levelbar i.f { background: var(--c); }
+.concern { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface-2); }
+.concern .q { font-size: 12.5px; font-weight: 700; color: var(--accent); }
+.concern p { font-size: 14px; }
+.dimcard { border-top: 1px solid var(--line); }
+.dimcard:first-child { border-top: 0; }
+.dim-head { width: 100%; display: flex; align-items: center; gap: 10px; padding: 12px 0; text-align: left; }
+.dim-dot { width: 10px; height: 10px; border-radius: 3px; background: var(--c); flex: none; }
+.dim-name { font-weight: 700; font-size: 15px; flex: 1; min-width: 0; }
+.chev { transition: transform 0.2s; color: var(--ink-3); flex: none; }
+.dimcard.open .chev { transform: rotate(180deg); }
+.dim-body { display: none; flex-direction: column; gap: 12px; padding: 0 0 16px; }
+.dimcard.open .dim-body { display: flex; }
+.dim-block { display: flex; flex-direction: column; gap: 6px; }
+.dim-block h4 { font-size: 12px; letter-spacing: 0.06em; color: var(--ink-3); font-weight: 700; }
+.dim-block ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.home {
+  border-radius: 12px; padding: 12px;
+  background: color-mix(in srgb, var(--c) 8%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--c) 22%, transparent);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.home b { font-size: 14px; }
+.home p { font-size: 13.5px; color: var(--ink-2); }
+.home .meta { font-size: 12px; color: var(--ink-3); }
+.qline { display: grid; grid-template-columns: 84px 1fr; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 14px; }
+.qline:first-child { border-top: 0; }
+.qline .n { font-weight: 700; display: flex; flex-direction: column; gap: 2px; }
+.qline .n small { font-size: 11.5px; font-weight: 600; }
+.rec-card {
+  border-radius: 14px; padding: 14px;
+  background: var(--ink); color: var(--surface);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.rec-card .k { font-size: 12px; opacity: 0.7; font-weight: 600; letter-spacing: 0.04em; }
+.rec-card h3 { font-size: 17px; line-height: 1.35; }
+.rec-card p { font-size: 13.5px; opacity: 0.85; }
+.lesson { display: grid; grid-template-columns: 58px 1fr; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); }
+.lesson:first-of-type { border-top: 0; }
+.lesson .no { font-size: 11px; color: var(--ink-3); font-weight: 700; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; font-variant-numeric: tabular-nums; }
+.lesson .t { font-weight: 650; font-size: 14px; }
+.lesson .w { font-size: 13px; color: var(--ink-2); }
+.cta-stack { display: flex; flex-direction: column; gap: 8px; }
+.cta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.booked { border-radius: 12px; padding: 12px; background: var(--wx-soft); color: var(--ink); font-size: 14px; display: flex; flex-direction: column; gap: 4px; }
+.booked b { color: var(--good); }
+.about { font-size: 13px; color: var(--ink-2); display: flex; flex-direction: column; gap: 8px; }
+.about dl { display: grid; grid-template-columns: 70px 1fr; gap: 6px 10px; margin: 0; }
+.about dt { color: var(--ink-3); }
+.about dd { margin: 0; }
+.rp-foot { padding: 20px var(--gr) 28px var(--gl); font-size: 12px; color: var(--ink-3); text-align: center; display: flex; flex-direction: column; gap: 6px; }
+.fb { display: flex; gap: 8px; justify-content: center; }
+
+/* Scenes ("highlight clips" drawn as animation, no real child footage) */
+.clips { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
+.clip { flex: none; width: 236px; display: flex; flex-direction: column; gap: 6px; }
+.scene {
+  position: relative; width: 100%; aspect-ratio: 16 / 10; max-width: 100%;
+  border-radius: 12px; overflow: hidden; background: #1d2a52;
+}
+.scene svg { width: 100%; height: 100%; display: block; }
+.scene video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000000; }
+.scene .tag { position: absolute; left: 8px; top: 8px; font-size: 11px; padding: 2px 7px; border-radius: 6px; background: rgba(0,0,0,0.45); color: #ffffff; }
+.scene .play {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  background: rgba(0,0,0,0.18); color: #ffffff;
+}
+.scene .play span { width: 46px; height: 46px; border-radius: 50%; background: rgba(0,0,0,0.5); display: grid; place-items: center; }
+.scene.playing .play { display: none; }
+.scene .cap { position: absolute; left: 8px; right: 8px; bottom: 8px; font-size: 12px; color: #ffffff; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 6px; opacity: 0; transition: opacity 0.4s; }
+.scene.playing .cap { opacity: 1; transition-delay: 1.2s; }
+.clip-cap { font-size: 13px; font-weight: 600; line-height: 1.4; }
+.clip-meta { font-size: 12px; color: var(--ink-3); }
+.privacy-note { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; color: var(--ink-3); }
+/* rocket */
+.s-tri { transform-box: fill-box; transform-origin: center; }
+.scene.playing .s-tri.t1 { animation: fly1 1.2s 0.2s cubic-bezier(.3,.8,.3,1) both; }
+.scene.playing .s-tri.t2 { animation: fly2 1.2s 1.0s cubic-bezier(.3,.8,.3,1) both; }
+.scene.playing .s-tri.t3 { animation: fly3 2.2s 1.8s cubic-bezier(.3,.8,.3,1) both; }
+@keyframes fly1 { from { transform: translate(150px, -40px) rotate(-30deg); } to { transform: none; } }
+@keyframes fly2 { from { transform: translate(-130px, -60px) rotate(25deg); } to { transform: none; } }
+@keyframes fly3 { 0% { transform: translate(110px, 30px) rotate(180deg); } 45% { transform: translate(60px, 10px) rotate(180deg); } 75% { transform: translate(30px, 0) rotate(0deg); } 100% { transform: none; } }
+/* maze */
+.s-walker { offset-rotate: 0deg; offset-distance: 0%; }
+.scene.playing .s-walker { animation: walk 4.5s 0.4s ease-in-out both; }
+@keyframes walk { to { offset-distance: 100%; } }
+.s-trace { stroke-dasharray: 900; stroke-dashoffset: 900; }
+.scene.playing .s-trace { animation: trace 4.5s 0.4s ease-in-out both; }
+@keyframes trace { to { stroke-dashoffset: 0; } }
+/* alien */
+.s-pop { transform-box: fill-box; transform-origin: center; transform: scale(0); }
+.scene:not(.playing) .s-pop { transform: scale(1); }
+.scene.playing .s-pop { animation: pop 0.45s cubic-bezier(.3,1.6,.5,1) both; }
+.scene.playing .s-pop.d1 { animation-delay: 0.3s; } .scene.playing .s-pop.d2 { animation-delay: 0.6s; } .scene.playing .s-pop.d3 { animation-delay: 0.9s; }
+.scene.playing .s-pop.d4 { animation-delay: 1.5s; } .scene.playing .s-pop.d5 { animation-delay: 2.1s; } .scene.playing .s-pop.d6 { animation-delay: 2.9s; }
+@keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+.s-draw { stroke-dasharray: 120; stroke-dashoffset: 0; }
+.scene.playing .s-draw { animation: draw 0.8s 1.2s ease both; }
+@keyframes draw { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
+
+/* ---------- Consultant ---------- */
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.kpi { background: var(--surface); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 2px; }
+.kpi b { font-family: var(--font-display); font-size: 22px; font-weight: 750; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.kpi span { font-size: 11.5px; color: var(--ink-3); }
+.lead { background: var(--surface); border-radius: var(--r-lg); padding: 14px; display: flex; flex-direction: column; gap: 10px; border-left: 4px solid var(--c, var(--line)); }
+.lead h3 { font-size: 16px; font-weight: 700; }
+.intent { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 6px; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); }
+.signals { display: flex; flex-wrap: wrap; gap: 6px; }
+.signals span { font-size: 12px; padding: 3px 8px; border-radius: 6px; background: var(--surface-2); color: var(--ink-2); }
+.signals span.hot { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); font-weight: 600; }
+.nextstep { font-size: 13.5px; background: var(--surface-2); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; }
+.nextstep b { font-size: 12px; color: var(--ink-3); }
+
+/* ---------- Sheets, toasts ---------- */
+.scrim { position: absolute; inset: 0; background: var(--scrim); animation: fade 0.18s ease; }
+.sheet {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  background: var(--surface); border-radius: 18px 18px 0 0;
+  padding: 10px var(--gr) calc(18px + env(safe-area-inset-bottom, 0px)) var(--gl);
+  display: flex; flex-direction: column; gap: 14px;
+  max-height: 86%; overflow-y: auto;
+  animation: up 0.24s cubic-bezier(.2,.8,.3,1);
+}
+.sheet .grab { width: 38px; height: 5px; border-radius: 3px; background: var(--line); align-self: center; }
+.sheet h3 { font-size: 17px; font-weight: 700; }
+@keyframes up { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.slot { height: 40px; border-radius: 10px; border: 1px solid var(--line); font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.slot.on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.slot[disabled] { opacity: 0.4; text-decoration: line-through; }
+.toast {
+  position: absolute; left: 50%; top: 96px; transform: translateX(-50%);
+  background: var(--hud); color: var(--hud-ink);
+  padding: 10px 14px; border-radius: 12px; font-size: 13.5px;
+  max-width: 84%; text-align: center; line-height: 1.45;
+  animation: fade 0.2s ease;
+}
+.share-opts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; font-size: 12px; color: var(--ink-2); }
+.share-opts button { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.share-opts .ic { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: var(--surface-3); color: var(--ink); }
+.share-opts .ic.wx { background: var(--wx); color: #ffffff; }
+.copybox { display: flex; gap: 8px; align-items: center; background: var(--surface-2); border-radius: 10px; padding: 8px 10px; font-size: 12.5px; color: var(--ink-2); }
+.copybox code { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .app { grid-template-columns: minmax(0, 1fr); }
+  .guide {
+    position: fixed; inset: auto 0 0 0; height: auto; max-height: 82%;
+    z-index: 50; background: var(--surface);
+    border-radius: 20px 20px 0 0; box-shadow: var(--shadow);
+    padding: 18px var(--gr) calc(18px + env(safe-area-inset-bottom, 0px)) var(--gl);
+    transform: translateY(105%); transition: transform 0.25s ease;
+  }
+  .app.guide-open .guide { transform: none; }
+  .guide-fab {
+    display: inline-flex; align-items: center; gap: 6px;
+    position: fixed; z-index: 40;
+    right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(86px + env(safe-area-inset-bottom, 0px));
+    background: var(--ink); color: var(--surface);
+    padding: 9px 14px; border-radius: 999px; font-size: 13px; font-weight: 650;
+    box-shadow: var(--shadow);
+  }
+  .guide-close { display: inline-flex !important; }
+}
+.guide-close { display: none !important; }
+@media (max-width: 520px) {
+  .stage { padding: 0; }
+  .phone { width: 100%; height: 100%; border-radius: 0; box-shadow: none; }
+  .phone-status { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-delay: 0ms !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+.rp-hero .voice { background: var(--surface-3); }
+.rp-hero .voice::before { border-right-color: var(--surface-3); }
+
+/* ---------- Think Academy palette, PreK feel ---------- */
+.guide { margin: 16px 0 16px max(16px, env(safe-area-inset-left, 0px)); height: auto; background: var(--paper); border-radius: 28px; box-shadow: var(--shadow-sm); padding-left: 26px; padding-right: 22px; }
+.g-title { font-weight: 800; letter-spacing: 0; }
+.g-kicker { color: var(--accent); }
+.g-step.active .g-dot { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+.g-step.done .g-dot { border-color: var(--brand-green); color: var(--brand-green); }
+.g-tips { background: var(--surface); border-color: var(--line); }
+.sec-title .mk { width: 16px; height: 16px; border-radius: 0; background: var(--brand); clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+.btn { border-radius: 999px; }
+.btn.sm { border-radius: 999px; }
+.btn.ink { background: var(--brand-green); color: #ffffff; }
+.card, .task-card, .draft, .lead { box-shadow: var(--shadow-sm); }
+.rp-hero {
+  background-color: var(--brand-cream);
+  background-image: radial-gradient(circle at calc(100% - 22px) 16px, var(--brand-yellow) 0 6px, transparent 7px), radial-gradient(circle at calc(100% - 44px) 10px, var(--brand-coral) 0 3.5px, transparent 4.5px);
+  border-bottom-left-radius: 28px; border-bottom-right-radius: 28px;
+}
+.rp-name { font-weight: 800; font-size: 30px; }
+.avatar.lg { border-radius: 50%; background: var(--brand); }
+.key { background: var(--surface); box-shadow: var(--shadow-sm); border-radius: 16px; }
+.rec-card { background: var(--brand-green); color: #ffffff; border-radius: 20px; }
+.home { border-radius: 16px; }
+.concern { background: var(--brand-cream); border: 1px solid var(--line); border-radius: 16px; }
+.t-head h2, .task-title, .kpi b { font-family: var(--font-display); font-weight: 800; }
+.t-head { background: var(--brand-cream); }
+.hero-strip { background: var(--brand-cream); }
+.opt { border-radius: 999px; }
+.opt.on { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+.chip.on { background: var(--brand-green); color: #ffffff; }
+.qdot.cur { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent); }
+.switch.on { background: var(--brand-green); }
+.phone { box-shadow: 0 0 0 10px var(--bezel), var(--shadow); }
+.wxbar { background: var(--surface-3); }
+@media (max-width: 980px) {
+  .guide { margin: 0; border-radius: 24px 24px 0 0; }
+  .guide-fab { background: var(--brand-green); color: #ffffff; }
+}
+
+/* Older WebViews (some Android WeChat builds) lack color-mix(): keep tinted surfaces readable */
+@supports not (background: color-mix(in srgb, red 50%, blue)) {
+  .badge, .chip.dim, .intent { background: var(--surface-3); }
+  .rub.on, .qdot.rated { background: var(--surface-2); }
+  .home { background: var(--surface-2); border-color: var(--line); }
+  .signals span.hot { background: var(--accent-soft); }
+}
+
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="guide" id="guide" aria-label="演示导览"></aside>
+  <main class="stage">
+    <div class="phone" id="phone">
+      <div class="phone-status" aria-hidden="true"><span>9:41</span><span class="sys"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="16" height="8" rx="1.8" fill="currentColor"/><rect x="22.5" y="4" width="2" height="4" rx="1" fill="currentColor" opacity=".4"/></svg></span></div>
+      <div class="screen" id="screen" tabindex="-1"></div>
+      <div class="layer" id="layer"></div>
+    </div>
+  </main>
+  <button class="guide-fab" data-act="guide-open">演示导览</button>
+  <input type="file" id="vidInput" accept="video/*" capture="environment" hidden>
+</div>
+<script>
+/* Sample content for the demo. Fictional child, teacher and families. */
+
+const CHILD = { name: 'Ethan', initial: 'E', age: { zh: '4 岁 3 个月', en: '4 yrs 3 mos' } };
+const TEACHER = { name: { zh: '王老师', en: 'Ms. Wang' }, initial: '王', role: { zh: '本次记录老师 · 主讲：林老师', en: 'Recording teacher · Lead: Ms. Lin' } };
+
+/* Offline group session: parents attend a talk while 1 lead teacher runs the booklet with 3 kids and 3 recording teachers each follow one child. */
+const SESSION = {
+  group: '第 2 组', room: '教室 B', time: '10:30–10:55', lead: '林老师',
+  talk: { title: '家长讲座：4 岁孩子的数学思维怎么看', place: '多功能厅', time: '10:20–11:10', ends: '11:10' },
+  kids: [
+    { id: 'ethan', name: 'Ethan W.', initial: 'E', age: '4 岁 3 个月', recorder: '王老师（你）', me: true, c: 'var(--dim-spa)' },
+    { id: 'chloe', name: 'Chloe L.', initial: 'C', age: '4 岁 8 个月', recorder: '陈老师', progress: 'Q2 · 已记录 4 条', c: 'var(--dim-mea)' },
+    { id: 'lucas', name: 'Lucas Z.', initial: 'L', age: '3 岁 11 个月', recorder: '赵老师', progress: 'Q2 · 已记录 3 条', c: 'var(--dim-cre)' },
+  ],
+};
+
+const DIMS = [
+  { id: 'num', zh: '数感与运算', en: 'Number Sense', short: { zh: '数感', en: 'Number' }, color: 'var(--dim-num)', drdp: 'COG 3、COG 4' },
+  { id: 'spa', zh: '空间与图形', en: 'Spatial Sense', short: { zh: '空间', en: 'Spatial' }, color: 'var(--dim-spa)', drdp: 'COG 1、COG 7' },
+  { id: 'rea', zh: '规律与推理', en: 'Patterns & Reasoning', short: { zh: '推理', en: 'Reasoning' }, color: 'var(--dim-rea)', drdp: 'COG 6、COG 2' },
+  { id: 'mea', zh: '测量与数据', en: 'Measurement & Data', short: { zh: '测量', en: 'Measuring' }, color: 'var(--dim-mea)', drdp: 'COG 5' },
+  { id: 'exp', zh: '数学表达', en: 'Math Talk', short: { zh: '表达', en: 'Math Talk' }, color: 'var(--dim-exp)', drdp: 'LLD' },
+  { id: 'cre', zh: '创意与动手', en: 'Creativity', short: { zh: '创意', en: 'Creativity' }, color: 'var(--dim-cre)', drdp: 'VPA、PD' },
+];
+
+const LEVELS = {
+  4: { zh: '拔尖', en: 'Extending', old: 'A+', def: { zh: '独立完成，并能解释或举一反三', en: 'Does it independently and can explain or extend it' } },
+  3: { zh: '熟练', en: 'Secure', old: 'A', def: { zh: '独立完成', en: 'Does it independently' } },
+  2: { zh: '发展中', en: 'Developing', old: 'B', def: { zh: '在提示或教具帮助下完成', en: 'Does it with a hint or hands-on support' } },
+  1: { zh: '萌芽', en: 'Emerging', old: 'C', def: { zh: '愿意尝试，概念还在建立', en: 'Willing to try; the idea is still forming' } },
+};
+
+const QLEVELS = {
+  3: { zh: '很突出', en: 'A strength' },
+  2: { zh: '符合年龄', en: 'On track' },
+  1: { zh: '可以多练', en: 'Room to grow' },
+};
+
+/* The 11 tasks of the existing paper test, regrouped into scoring items with behavior anchors. */
+const TASKS = [
+  {
+    id: 1, title: '天气统计表', titleEn: 'Weather chart',
+    prompt: { en: 'This is the daily weather table. Which weather has the most days?', zh: '这是每天的天气表，哪种天气的天数最多？' },
+    materials: '天气统计表卡片',
+    items: [{ id: '1', dim: 'mea', label: '读统计表', rubric: {
+      4: '直接比较各行长短说出答案，并说明「晴天这一行最长」',
+      3: '逐行点数后，正确指出天数最多的天气',
+      2: '提示「每一行数一数」后得出',
+      1: '能认出天气图标，但还不会比较多少' } }],
+    chips: ['逐个点数', '比较长短', '一次完成', '需要提示'],
+    sample: { ratings: { '1': 3 }, chips: ['逐个点数', '一次完成'] },
+  },
+  {
+    id: 2, title: '三角形拼火箭', titleEn: 'Rocket from triangles',
+    prompt: { en: 'Finish forming a rocket with triangles.', zh: '用三角形把火箭拼完整。' },
+    materials: '火箭底图、三角形贴纸 ×4', scene: 'rocket',
+    items: [{ id: '2', dim: 'spa', label: '图形组合与旋转', rubric: {
+      4: '先在脑中或手里转好方向，一次放对，并能说出「要倒过来」',
+      3: '独立拼完，个别位置要转几次试一试',
+      2: '老师示范一个后，能完成其余部分',
+      1: '能贴贴纸，但方向和位置还对不上' } }],
+    chips: ['旋转图形对位', '一次完成', '试错后完成', '需要示范', '主动解释'],
+    sample: { ratings: { '2': 4 }, chips: ['旋转图形对位', '一次完成', '主动解释'] },
+  },
+  {
+    id: 3, title: '兔子在哪里', titleEn: 'Where is the rabbit?',
+    prompt: { en: 'The triangle is behind the rabbit. Put the sticker and describe where the rabbit is.', zh: '三角形在兔子后面。贴上贴纸，再说说兔子在哪里。' },
+    materials: '兔子场景图、三角形贴纸',
+    items: [
+      { id: '3a', dim: 'spa', label: '放对位置', rubric: {
+        4: '迅速放对，还能换个说法（「兔子在三角形前面」）',
+        3: '独立放对位置',
+        2: '提示「后面是哪边？」后放对',
+        1: '位置放错，提示后仍不确定' } },
+      { id: '3b', dim: 'exp', label: '说出位置', rubric: {
+        4: '用完整句子描述，主动用到「前面 / 后面」等方位词',
+        3: '能用方位词说出位置',
+        2: '先指着说「在这儿」，提示后能说出方位词',
+        1: '说不出位置，只用手指' } },
+    ],
+    chips: ['用手势代替语言', '需要提示', '完整句子', '中英混用'],
+    sample: { ratings: { '3a': 3, '3b': 2 }, chips: ['用手势代替语言', '需要提示'] },
+  },
+  {
+    id: 4, title: '给 Squary 补橙子', titleEn: 'Oranges for Squary',
+    prompt: { en: 'Give Squary some oranges so they have the same number. How many do we need to give him?', zh: 'Bubble Bubble 有 6 个橙子，Squary 有 2 个。要给 Squary 几个，两人才一样多？' },
+    materials: '题卡（6 个 vs 2 个橙子）、圆片教具',
+    items: [{ id: '4', dim: 'num', label: '比较与凑数', rubric: {
+      4: '从 2 接着数到 6，或直接说出 4，并能解释',
+      3: '一一配对或逐个点数后得出 4',
+      2: '提示「排成两排比一比」后得出',
+      1: '能数出每排有几个，但还不理解「一样多」' } }],
+    chips: ['接着数', '逐个点数', '一一配对', '用手指', '一眼看出', '主动解释'],
+    sample: { ratings: { '4': 4 }, chips: ['接着数', '用手指'] },
+  },
+  {
+    id: 5, title: '数一数火箭里的图形', titleEn: 'Count the shapes',
+    prompt: { en: 'Count the different shapes in the rocket. Write the numbers in the blanks.', zh: '数一数火箭里每种图形各有几个，写在下面的格子里。' },
+    materials: '火箭图形卡、铅笔',
+    items: [{ id: '5', dim: 'mea', label: '分类计数', rubric: {
+      4: '先分类再计数，全部正确，还会自己检查',
+      3: '四种图形都数对，可能有一处自己改正',
+      2: '能数对两三种，长方形和正方形会混',
+      1: '能认出图形，但计数还不稳定' } }],
+    chips: ['先分类再数', '自我纠正', '长方形/正方形混淆', '逐个点数'],
+    sample: { ratings: { '5': 3 }, chips: ['自我纠正', '逐个点数'] },
+  },
+  {
+    id: 6, title: '风扇叶片', titleEn: 'Fan blades', revised: true,
+    prompt: { en: 'Each fan needs 4 blades. How many blades do 3 fans need altogether?', zh: '每个风扇要 4 片叶片，3 个风扇一共要几片？' },
+    materials: '风扇题卡、叶片圆片 ×12',
+    items: [{ id: '6', dim: 'num', label: '按组数', rubric: {
+      4: '4 个 4 个地数（4、8、12），并能说明',
+      3: '逐个点数得出 12',
+      2: '借助圆片摆一摆后得出',
+      1: '能数出一个风扇的叶片，但还合不起来' } }],
+    chips: ['按组数', '逐个点数', '借助教具', '用手指'],
+    sample: { ratings: { '6': 3 }, chips: ['逐个点数'] },
+  },
+  {
+    id: 7, title: '找规律放小鱼', titleEn: 'Fish pattern',
+    prompt: { en: 'Find the pattern. Put the missing fish in the right place.', zh: '找到规律，把缺的小鱼放到正确的位置。' },
+    materials: '规律条、小鱼贴纸',
+    items: [{ id: '7', dim: 'rea', label: '识别并延续规律', rubric: {
+      4: 'AB 与 ABC 规律都独立完成，并能说出规律',
+      3: '独立完成 AB 规律，ABC 规律试一次后完成',
+      2: '提示「读一读」后完成',
+      1: '按颜色随意放，还看不出规律' } }],
+    chips: ['说出规律', '试错后完成', '需要提示'],
+    sample: { ratings: { '7': 3 }, chips: ['试错后完成'] },
+  },
+  {
+    id: 8, title: '缺失的帽子', titleEn: 'The missing hat',
+    prompt: { en: 'Look at the pattern and find the missing hat. Tell why the others are not correct.', zh: '看看规律，找出缺少的帽子，再说说为什么别的帽子不对。' },
+    materials: '帽子规律图',
+    items: [
+      { id: '8a', dim: 'rea', label: '找出帽子', rubric: {
+        4: '迅速选对，并能指出规律在哪（颜色 + 花纹）',
+        3: '独立选对',
+        2: '提示「看看颜色」后选对',
+        1: '选错，提示后仍不确定' } },
+      { id: '8b', dim: 'exp', label: '说明理由', rubric: {
+        4: '能说清规律，并逐一说明其他选项为什么不对',
+        3: '能说出至少一个理由（「这个没有条纹」）',
+        2: '提示后能说出一个理由',
+        1: '说不出理由，或只说「因为它不对」' } },
+    ],
+    chips: ['选择正确', '解释不完整', '需要提示', '中英混用'],
+    sample: { ratings: { '8a': 3, '8b': 1 }, chips: ['选择正确', '解释不完整'] },
+  },
+  {
+    id: 9, title: '迷宫找 Squary', titleEn: 'Maze to Squary',
+    prompt: { en: 'Which way can I find Squary?', zh: '走哪条路能找到 Squary？' },
+    materials: '迷宫图', scene: 'maze',
+    items: [{ id: '9', dim: 'spa', label: '路径追踪', rubric: {
+      4: '先用眼睛看完，再用手指一次走对，没有回头',
+      3: '独立走对，中途回头一次',
+      2: '提示「跟着这条路走」后走对',
+      1: '容易从一条路跳到另一条' } }],
+    chips: ['先观察再动手', '一次完成', '回头一次', '需要提示'],
+    sample: { ratings: { '9': 4 }, chips: ['先观察再动手', '一次完成'] },
+  },
+  {
+    id: 10, title: '狮子先生的蛋糕', titleEn: "Mr. Lion's cake",
+    prompt: { en: 'Help Mr. Lion choose his favorite cake. It has strawberries, and it is not round.', zh: '帮狮子先生选他最喜欢的蛋糕：上面有草莓，而且不是圆的。' },
+    materials: '蛋糕卡 ×4',
+    items: [{ id: '10', dim: 'rea', label: '多条件推理', rubric: {
+      4: '同时用两个条件排除，并能说出排除过程',
+      3: '独立用两个条件选对',
+      2: '能用一个条件，提醒第二个条件后选对',
+      1: '凭喜好选，还不会按条件排除' } }],
+    chips: ['能用一个条件', '需要提示', '排除法', '凭喜好选'],
+    sample: { ratings: { '10': 2 }, chips: ['能用一个条件', '需要提示'] },
+  },
+  {
+    id: 11, title: '画外星人朋友', titleEn: 'Draw an alien friend',
+    prompt: { en: 'Can you draw three eyes and add more body parts to make an alien friend? Tell me about it!', zh: '画三只眼睛，再加上别的部位，变成一个外星人朋友，然后讲讲它。' },
+    materials: '圆形画纸、彩笔', scene: 'alien',
+    items: [
+      { id: '11a', dim: 'cre', label: '创意与细节', rubric: {
+        4: '有多个独特细节，还自成一个小故事',
+        3: '按要求完成，并加了自己的细节',
+        2: '完成基本要求，细节较少',
+        1: '需要较多引导才动笔' } },
+      { id: '11b', dim: 'exp', label: '介绍作品', rubric: {
+        4: '连贯地介绍名字、特点和故事',
+        3: '能用几句话介绍自己的作品',
+        2: '回答老师的提问，句子较短',
+        1: '很少说话，只点头或摇头' } },
+    ],
+    chips: ['有独特细节', '握笔稳', '用英文介绍', '用中文介绍', '讲了一个小故事'],
+    sample: { ratings: { '11a': 3, '11b': 3 }, chips: ['有独特细节', '握笔稳', '用英文介绍'] },
+  },
+];
+
+/* Voice notes the teacher recorded during the sample session: raw speech-to-text + AI-polished, teacher-approved text. */
+const SAMPLE_NOTES = [
+  { id: 'n2', task: 2, dim: 'spa', kind: 'strength', dur: 14,
+    raw: '嗯，Q2 他拼火箭特别快，那个尾翼的三角形他先在手里转了一下，然后一次就放对了，还跟我说这个要倒过来放，嗯，空间感挺好的。',
+    zh: '拼火箭时，Ethan 先在手里把三角形转了半圈，再一次放进尾翼的位置，还主动说「这个要倒过来」。能在脑中转动图形并说出来，是空间能力很强的表现。',
+    en: 'While building the rocket, Ethan turned a triangle half a turn in his hand, placed it in the fin slot on the first try, and said, "This one goes upside down." Turning a shape in his head and saying so is a strong sign of spatial skill.' },
+  { id: 'n3', task: 3, dim: 'exp', kind: 'growth', dur: 16,
+    raw: 'Q3 贴纸贴对了，但是让他说兔子在哪，他就指着说在这儿在这儿，我提示了一下前面后面，他才说在前面，嗯，表达这块要多练。',
+    zh: '贴纸位置完全正确，但描述位置时 Ethan 习惯指着说「在这儿」，提示「前面还是后面？」后才说出「在前面」。他心里清楚，只是还没习惯用方位词表达。',
+    en: 'He placed the sticker exactly right, but to describe the rabbit\'s position he pointed and said "here." After the hint "in front or behind?" he said "in front." He knows it; he just isn\'t used to putting it into position words yet.' },
+  { id: 'n4', task: 4, dim: 'num', kind: 'strength', dur: 12,
+    raw: '橙子那题他是从 2 开始接着数的，3、4、5、6，然后伸了 4 个手指头说要给 4 个，这个挺好，不是从 1 开始数的。',
+    zh: '补橙子时，Ethan 没有从 1 重新数，而是从 2 接着数「3、4、5、6」，再看手指得出要给 4 个。会「接着数」，说明他已经把数字当成可以累加的量。',
+    en: 'To even out the oranges, Ethan didn\'t start over from 1. He counted on from 2 ("3, 4, 5, 6") and read 4 off his fingers. Counting on means he already treats numbers as amounts he can add to.' },
+  { id: 'n8', task: 8, dim: 'exp', kind: 'growth', dur: 15,
+    raw: '帽子那题选对了，问他为什么别的不行，他就说因为它不对，嗯，说不出理由，这个跟 Q3 一样，就是会做但是讲不出来。',
+    zh: 'Ethan 选对了缺失的帽子，但问他「为什么别的不行」时只说「因为它不对」。和兔子那题一样：会做，但还说不出理由。这是接下来最值得练的地方。',
+    en: 'Ethan picked the right hat, but when asked why the others don\'t fit he only said "because it\'s wrong." Same as the rabbit task: he can do it but can\'t yet say why. This is the most valuable thing to practice next.' },
+  { id: 'n9', task: 9, dim: 'spa', kind: 'strength', dur: 9,
+    raw: '迷宫他是先用眼睛看了一遍，然后手指一下就走到了，没有走回头路。',
+    zh: '走迷宫时，Ethan 先用眼睛把三条路看了一遍，再用手指一次走到 Squary，中途没有回头。先观察、再动手，是很好的解题习惯。',
+    en: 'In the maze, Ethan scanned all three paths with his eyes first, then traced the way to Squary in one go without backtracking. Look first, then act: a great problem-solving habit.' },
+  { id: 'n11', task: 11, dim: 'cre', kind: 'strength', dur: 18,
+    raw: '画画的时候他画了三只眼睛，还加了天线和火箭鞋，说叫 Zork，住在月亮上，用英文讲的，挺流利的，嗯，想象力不错，握笔也稳。',
+    zh: 'Ethan 画了三只眼睛、两根天线和一双「火箭鞋」，还用英文介绍：“He\'s Zork. He lives on the moon.” 细节丰富，握笔稳定。讲自己的作品时他很流畅，说明表达的卡点在「解释思路」，不在语言本身。',
+    en: 'Ethan drew three eyes, two antennae and a pair of "rocket shoes," then introduced it in English: "He\'s Zork. He lives on the moon." Rich detail, steady grip. He talks fluently about his own work, so the Math Talk gap is about explaining his reasoning, not language itself.' },
+  { id: 'nsum', task: 'wrap', dim: null, kind: 'summary', dur: 21,
+    raw: '整体来说 Ethan 很专注，二十多分钟都坐得住，空间和数数都很好，接着数也会了，嗯，主要就是让他多说说为什么，在家可以多问问他你是怎么想的。',
+    zh: 'Ethan 是个专注又爱动手的「小工程师」：拼图形又快又准，数数已经会「接着数」。接下来最值得练的，是把脑子里的想法用语言讲出来。',
+    en: 'Ethan is a focused, hands-on "little engineer": quick and precise with shapes, and already counting on. The next thing worth practicing most is putting his thinking into words.' },
+];
+
+/* What the simulated speech recognizer "hears" when the demo runs without a microphone. */
+const DEMO_SCRIPTS = {
+  1: [{ dim: 'mea', kind: 'obs', raw: '天气表他是一行一行数的，晴天数了 5 个，然后说晴天最多，嗯，没有直接比长短。',
+    zh: '读天气表时，Ethan 一行一行地数，数出晴天有 5 天后说「晴天最多」。他还没用「比一比哪行更长」的方法，下一步可以引导他直接比较。',
+    en: 'Reading the weather chart, Ethan counted row by row, found 5 sunny days and said "sunny wins." He doesn\'t yet compare row lengths directly, which is a good next step.' }],
+  2: [{ dim: 'spa', kind: 'strength', raw: '第二个火箭他也拼得很快，还自己加了一个窗户，说火箭要有窗户才能看星星。',
+    zh: '第二枚火箭 Ethan 同样拼得很快，还自己加了一个窗户，说「火箭要有窗户才能看星星」。完成任务后还会加自己的想法，说明他对图形很有把握。',
+    en: 'Ethan built the second rocket quickly too and added a window on his own: "Rockets need windows to see the stars." Adding his own ideas after finishing shows real confidence with shapes.' }],
+  3: [{ dim: 'exp', kind: 'growth', raw: '我又问了一次小熊在哪里，这次他说小熊在盒子上面，嗯，第二次就会用了。',
+    zh: '换成「小熊在哪里？」再问一次，Ethan 说出了「小熊在盒子上面」。提示过一次之后就能自己用上方位词，说明这个能力正在形成。',
+    en: 'Asked again about a teddy bear, Ethan said "the bear is on top of the box." After one hint he could use the position word himself, so this skill is forming.' }],
+  4: [{ dim: 'num', kind: 'strength', raw: '我追问如果 Bubble 有 8 个呢，他想了一下说那就要 6 个，也是接着数的。',
+    zh: '追问「如果 Bubble Bubble 有 8 个呢？」，Ethan 想了一下说「那就要给 6 个」，用的还是接着数。换了数字也能用同一个方法，说明他是真的理解了。',
+    en: 'I followed up: "What if Bubble Bubble had 8?" After a moment Ethan said "then 6," counting on again. Using the same method with new numbers shows real understanding.' }],
+  5: [{ dim: 'mea', kind: 'obs', raw: '数图形的时候长方形和正方形他一开始数混了，后来自己发现了又改过来了。',
+    zh: '数图形时，Ethan 一开始把长方形和正方形数混了，随后自己发现并改正。会自己检查是很好的习惯，长方形和正方形的区别可以在生活中多指认。',
+    en: 'Counting shapes, Ethan first mixed up rectangles and squares, then noticed and fixed it himself. Self-checking is a great habit; pointing out rectangles and squares in daily life will help.' }],
+  6: [{ dim: 'num', kind: 'obs', raw: '风扇那题他是一个一个数到 12 的，数得很准，但是还没有 4 个 4 个数。',
+    zh: '风扇叶片 Ethan 是一片一片数到 12 的，数得很准，但还没有用「4 个 4 个地数」。下一步可以练按组数，这是乘法的前身。',
+    en: 'Ethan counted the fan blades one by one up to 12, accurately, but didn\'t yet count in fours. Counting in groups is a natural next step and a precursor to multiplication.' }],
+  7: [{ dim: 'rea', kind: 'obs', raw: '规律那题 AB 的很快，ABC 的第一次放错了，他自己读了一遍红黄蓝红黄蓝就改对了。',
+    zh: '找规律时，AB 规律 Ethan 很快完成；ABC 规律第一次放错，他自己念了一遍「红、黄、蓝，红、黄、蓝」就改对了。用「念出来」来检查，是很好的策略。',
+    en: 'Ethan finished the AB pattern quickly. On the ABC pattern he slipped once, then read it aloud ("red, yellow, blue, red, yellow, blue") and fixed it. Saying it aloud to check is a smart strategy.' }],
+  8: [{ dim: 'exp', kind: 'growth', raw: '后来我给他示范了一下怎么说，因为它没有条纹，他跟着说了一遍，嗯，有示范的话可以。',
+    zh: '我示范「因为它没有条纹」后，Ethan 能跟着说一遍。有示范时他可以说出理由，在家多用「因为……所以……」和他对话会很有帮助。',
+    en: 'After I modeled "because it has no stripes," Ethan could repeat the reason. With a model he can explain; using "because… so…" in conversations at home will help a lot.' }],
+  9: [{ dim: 'spa', kind: 'strength', raw: '我又让他找 Squary 回家的路，他也很快找到了，还说这条路像一条蛇。',
+    zh: '再请他找 Squary 回家的路，Ethan 也很快找到，还说「这条路像一条蛇」。把路线和熟悉的形象联系起来，是记住空间信息的好方法。',
+    en: 'Asked to find Squary\'s way home, Ethan found it quickly and said "this road looks like a snake." Linking a route to a familiar shape is a good way to remember spatial information.' }],
+  10: [{ dim: 'rea', kind: 'growth', raw: '蛋糕那题他先挑了有草莓的，但是忘了不能是圆的，我提醒了一下他才换成方的那个。',
+    zh: '选蛋糕时，Ethan 先挑出有草莓的，但忘了「不能是圆的」，提醒后才换成方形的那块。4 岁孩子同时记住两个条件本来就有难度，多玩排除类小游戏会进步很快。',
+    en: 'Ethan picked a strawberry cake first but forgot "not round"; after a reminder he switched to the square one. Holding two conditions at once is hard at four, and elimination games help quickly.' }],
+  11: [{ dim: 'exp', kind: 'strength', raw: '我问 Zork 喜欢吃什么，他说喜欢吃月亮上的石头，讲得很开心。',
+    zh: '问「Zork 喜欢吃什么？」，Ethan 开心地说「它喜欢吃月亮上的石头」。讲自己的作品时，他的表达自然又有想象力。',
+    en: 'Asked "What does Zork like to eat?", Ethan happily said "rocks from the moon." When talking about his own creations, his language is natural and imaginative.' }],
+  wrap: [{ dim: null, kind: 'obs', raw: '补充一下，他刚开始有点害羞，大概两分钟就放开了，后面越做越投入，特别喜欢动手的题。',
+    zh: '补充一点：Ethan 刚开始有点害羞，大约两分钟后就放开了，越做越投入，尤其喜欢动手的题目。',
+    en: 'One more thing: Ethan was a little shy at first, warmed up after about two minutes, and got more and more engaged, especially on hands-on tasks.' }],
+};
+
+const QUALITIES = [
+  { id: 'focus', zh: '专注力', en: 'Focus', sample: 3, obs: { zh: '22 分钟测评全程坐得住，只在第 10 题后伸了个懒腰。', en: 'Stayed engaged for all 22 minutes; stretched once after task 10.' } },
+  { id: 'init', zh: '主动性', en: 'Initiative', sample: 3, obs: { zh: '看到新教具会主动问「这个怎么玩？」', en: 'Asked "How do we play this?" whenever new materials came out.' } },
+  { id: 'pers', zh: '坚持性', en: 'Persistence', sample: 2, obs: { zh: '第 10 题卡住时愿意再试一次，第二次需要老师鼓励。', en: 'Tried again when stuck on task 10; needed encouragement the second time.' } },
+  { id: 'instr', zh: '听从指令', en: 'Following directions', sample: 2, obs: { zh: '两步指令能独立完成，三步指令需要重复一次。', en: 'Follows two-step directions on his own; three-step ones needed one repeat.' } },
+  { id: 'motor', zh: '精细动作', en: 'Fine motor', sample: 3, obs: { zh: '握笔稳定，贴纸能准确对齐到格子里。', en: 'Steady pencil grip; lines stickers up precisely.' } },
+];
+
+/* What a level means, per dimension. hi = Secure or above, lo = below Secure. */
+const MEANING = {
+  num: {
+    hi: { zh: '会「接着数」、能比较和凑数，说明他已经把数字当成可以累加的量，这是从「数数」走向「加减法」的关键一步。', en: 'Counting on, comparing and making equal groups show he treats numbers as amounts he can add to: the key step from counting to addition and subtraction.' },
+    lo: { zh: '能一个一个数，但比较多少、凑成一样多还需要摆一摆、比一比。多用实物练「一一对应」，会进步很快。', en: 'He can count one by one, but comparing amounts or making them equal still needs hands-on matching. Practicing one-to-one matching with real objects helps quickly.' } },
+  spa: {
+    hi: { zh: '能在脑中转动图形、先观察再动手，在 4 岁孩子里比较突出。研究发现，学龄前的空间能力和之后的数学成绩关系密切。', en: 'Turning shapes in his head and looking before acting stand out at age four. Research links preschool spatial skills closely to later math achievement.' },
+    lo: { zh: '图形能认，但组合、旋转和方位还在建立。拼图、积木和「照着摆」的游戏，是练空间能力最直接的方式。', en: 'He recognizes shapes, but combining, turning and placing them is still developing. Puzzles, blocks and copy-the-pattern games are the most direct practice.' } },
+  rea: {
+    hi: { zh: '能识别并延续规律，也能按条件做判断，推理的底子很扎实。下一步可以挑战多条件、多步骤的问题。', en: 'He spots and extends patterns and reasons from conditions: a solid base. Next come problems with several conditions or steps.' },
+    lo: { zh: '单一规律掌握得好；需要同时记住两个条件时，还会丢掉其中一个。这在 4 岁很常见，多玩排除类小游戏会进步很快。', en: 'Single patterns are solid; holding two conditions at once still drops one. That is common at four, and elimination games help quickly.' } },
+  mea: {
+    hi: { zh: '能分类计数、读懂简单的统计表。下一步是学会「比一比哪一行更长」来比较，而不是每次都从头数。', en: 'He can sort, count and read a simple chart. Next: compare by seeing which row is longer instead of recounting every time.' },
+    lo: { zh: '分类和比较多少还需要提示。生活里的「分一分、比一比」是最好的练习，比如袜子配对、积木按颜色分堆。', en: 'Sorting and comparing still need hints. Everyday sorting is the best practice, like matching socks or grouping blocks by color.' } },
+  exp: {
+    hi: { zh: '能用语言说清楚自己的想法，这让老师更容易看到他懂了什么，也帮他自己发现错误。', en: 'He can put his thinking into words, which helps teachers see what he understands and helps him catch his own mistakes.' },
+    lo: { zh: '他会做，但还说不出「为什么」。把思路讲出来能帮他检查自己的想法，也让老师更容易发现他卡在哪里。这类能力在家每天练几分钟就会有变化。', en: 'He can do it but can\'t yet say why. Explaining his thinking helps him check his own ideas and helps teachers see where he is stuck. A few minutes a day at home makes a difference.' } },
+  cre: {
+    hi: { zh: '想象力丰富、细节多，能把一个要求变成自己的作品，动手也稳。', en: 'Imaginative and detailed; he turns a prompt into his own creation, with steady hands.' },
+    lo: { zh: '能按要求完成，细节还不多。多给他没有标准答案的任务（自由画、自由搭），比照着做更能激发创意。', en: 'He completes the task with few added details. Open-ended tasks with no single right answer spark more creativity than copying.' } },
+};
+
+/* One 5-minute home game per dimension, by level band. */
+const HOME = {
+  num: {
+    hi: { t: { zh: '超市接着数', en: 'Count on at the store' }, d: { zh: '买水果时问：「篮子里有 3 个苹果，我们要 7 个，还要拿几个？」让他从 3 接着数。', en: 'At the store: "We have 3 apples and need 7. How many more?" Let him count on from 3.' }, m: { zh: '任何水果或零食', en: 'any fruit or snacks' } },
+    lo: { t: { zh: '一样多吗？', en: 'Same or not?' }, d: { zh: '摆两排零食，一排 5 个、一排 3 个，问「怎样才一样多？」让他一个对一个地摆。', en: 'Line up 5 snacks and 3 snacks. Ask "How can they be the same?" and let him match them one to one.' }, m: { zh: '小零食', en: 'small snacks' } } },
+  spa: {
+    hi: { t: { zh: '照片拼图挑战', en: 'Photo puzzle challenge' }, d: { zh: '用纸剪几个三角形，摆一个造型拍照，让他照着拼；会了以后把照片转 90° 再拼。', en: 'Cut paper triangles, build a shape and snap a photo for him to copy. Then rotate the photo 90° and try again.' }, m: { zh: '彩纸、剪刀', en: 'paper, scissors' } },
+    lo: { t: { zh: '藏宝游戏', en: 'Treasure hunt' }, d: { zh: '把玩具藏在「沙发后面」「桌子下面」，用方位词给线索让他找，再交换角色。', en: 'Hide a toy "behind the sofa" or "under the table" and give position clues; then switch roles.' }, m: { zh: '一个小玩具', en: 'one small toy' } } },
+  rea: {
+    hi: { t: { zh: '规律找茬', en: 'Spot the slip' }, d: { zh: '用积木摆 ABC、AABB 规律，故意摆错一个，让他找出来并说出规律。', en: 'Build ABC or AABB patterns with blocks, sneak in one mistake, and have him find it and name the pattern.' }, m: { zh: '彩色积木', en: 'colored blocks' } },
+    lo: { t: { zh: '猜猜我想的是哪个', en: 'Guess my toy' }, d: { zh: '摆 4 个玩具，说两条线索（「它是红色的，但不是车」），让他一个个排除。', en: 'Set out 4 toys and give two clues ("It\'s red, but it\'s not a car"). He rules them out one by one.' }, m: { zh: '4 个玩具', en: '4 toys' } } },
+  mea: {
+    hi: { t: { zh: '家庭天气表', en: 'Family weather chart' }, d: { zh: '一周每天贴一个天气贴纸，周末一起看「哪种天气最多、多几天」，引导他比长短而不是重数。', en: 'Add a weather sticker each day for a week. On the weekend, ask which weather won and by how many, comparing row lengths instead of recounting.' }, m: { zh: '贴纸、一张纸', en: 'stickers, paper' } },
+    lo: { t: { zh: '袜子分一分', en: 'Sock sort' }, d: { zh: '把洗好的袜子按颜色分堆，再数一数、比一比哪堆最多。', en: 'Sort clean socks into piles by color, then count and compare which pile is biggest.' }, m: { zh: '一篮袜子', en: 'a basket of socks' } } },
+  exp: {
+    hi: { t: { zh: '小老师时间', en: 'Little teacher' }, d: { zh: '让他当「小老师」，给你讲一道他会的题，你装作不懂，再多问一句「为什么」。', en: 'Let him be the teacher and explain a puzzle he knows; play confused and ask "why?" once more.' }, m: { zh: '无', en: 'nothing' } },
+    lo: { t: { zh: '你是怎么知道的？', en: '"How did you know?"' }, d: { zh: '每天挑一次他做对的事，问「你是怎么知道的？」。先示范「因为……所以……」，只复述，不纠正。', en: 'Once a day, when he gets something right, ask "How did you know?" Model "because… so…", and repeat his words back instead of correcting.' }, m: { zh: '无', en: 'nothing' } } },
+  cre: {
+    hi: { t: { zh: '给 Zork 盖个家', en: 'A home for Zork' }, d: { zh: '请他给外星人朋友画一个家，再讲讲 Zork 一天都做什么。', en: 'Ask him to draw a home for his alien friend and tell what Zork does all day.' }, m: { zh: '纸、彩笔', en: 'paper, markers' } },
+    lo: { t: { zh: '没有标准答案的画', en: 'No-wrong-answer drawing' }, d: { zh: '给一个开头（一个圆、一条线），让他自由加东西，变成任何东西，再讲讲是什么。', en: 'Start with a circle or a line and let him turn it into anything, then tell you what it is.' }, m: { zh: '纸、彩笔', en: 'paper, markers' } } },
+};
+
+/* Lessons from the PreK school-year syllabus (Fall + Spring, 36 lessons), mapped to dimensions. */
+const LESSONS = {
+  num: [
+    { term: 'fall', no: 8, topic: 'Rainforest', kp: { zh: '按组数', en: 'Count by group' }, why: { zh: '从一个一个数，到 5 个 5 个、10 个 10 个地数（风扇题的下一步）', en: 'From counting one by one to counting in fives and tens (the next step after the fan task)' } },
+    { term: 'fall', no: 15, topic: "Let's Make Cakes", kp: { zh: '10 以内加法', en: 'Addition within 10' }, why: { zh: '把「接着数」变成加法算式', en: 'Turns counting on into addition sentences' } } ],
+  spa: [
+    { term: 'spring', no: 17, topic: 'Tumble Jumble', kp: { zh: '积木与视图', en: 'Block building' }, why: { zh: '从不同方向看积木搭建，给空间强项更高的挑战', en: 'Viewing block builds from different sides: a harder challenge for a spatial strength' } },
+    { term: 'spring', no: 12, topic: 'Lost in Castle', kp: { zh: '立体迷宫', en: '3D maze' }, why: { zh: '从平面迷宫走向立体迷宫，还要自己设计一个', en: 'From flat mazes to 3D ones, including designing his own' } } ],
+  rea: [
+    { term: 'spring', no: 10, topic: 'Squary the Pirate', kp: { zh: '排除法', en: 'Elimination' }, why: { zh: '练习同时用两个条件做判断（狮子先生蛋糕题的下一步）', en: 'Using two conditions at once (the next step after Mr. Lion\'s cake)' } },
+    { term: 'spring', no: 18, topic: 'Journey to the Cave', kp: { zh: '位置推理', en: 'Positional reasoning' }, why: { zh: '一步一步推出顺序和结果', en: 'Working out order and outcomes step by step' } } ],
+  mea: [
+    { term: 'spring', no: 4, topic: 'Tidy Up', kp: { zh: '统计图', en: 'Statistical graph' }, why: { zh: '从逐个数，到用图表比较多少（天气表的下一步）', en: 'From counting each item to comparing with a chart (the next step after the weather chart)' } },
+    { term: 'spring', no: 14, topic: 'Who is Taller?', kp: { zh: '非标准测量', en: 'Non-standard measurement' }, why: { zh: '用「几块积木那么长」来比较长短', en: 'Measuring with blocks and other everyday units' } } ],
+  exp: [
+    { term: 'fall', no: 14, topic: 'Lucky Ring', kp: { zh: '左和右', en: 'Left and right' }, why: { zh: '用方位词描述位置，正是兔子那题卡住的地方', en: 'Describing position in words, exactly where the rabbit task got stuck' } },
+    { term: 'spring', no: 3, topic: 'Step by Step', kp: { zh: '地图与方向', en: 'Map and direction' }, why: { zh: '看简单地图，把路线一步一步讲出来', en: 'Reading a simple map and explaining a route step by step' } } ],
+  cre: [
+    { term: 'spring', no: 5, topic: 'Kingdom of Origami', kp: { zh: '折纸', en: 'Origami' }, why: { zh: '动手折出作品，再讲讲它的故事', en: 'Folding his own creations and telling their stories' } },
+    { term: 'spring', no: 13, topic: 'Float and Sink', kp: { zh: '沉与浮', en: 'Buoyancy test' }, why: { zh: '先猜、再动手验证', en: 'Predict first, then test it by hand' } } ],
+};
+
+const CONCERNS = [
+  { id: 'math', zh: '数学思维', en: 'Math thinking' },
+  { id: 'focus', zh: '专注力', en: 'Focus' },
+  { id: 'talk', zh: '表达', en: 'Explaining ideas' },
+  { id: 'k', zh: '幼小衔接', en: 'School readiness' },
+  { id: 'adv', zh: '是否适合进阶班', en: 'Ready for an advanced class?' },
+];
+const LIKES = [
+  { id: 'blocks', zh: '积木拼图' }, { id: 'draw', zh: '画画' }, { id: 'story', zh: '听故事' }, { id: 'out', zh: '户外运动' },
+];
+const HOME_LANG = [
+  { id: 'zh', zh: '中文' }, { id: 'en', zh: '英文' }, { id: 'both', zh: '中英都说' },
+];
+
+const TODAY = [
+  { id: 'chloe', name: 'Chloe L.', initial: 'C', age: '4 岁 8 个月', time: '09:30', status: 'sent', c: 'var(--dim-mea)' },
+    { id: 'lucas', name: 'Lucas Z.', initial: 'L', age: '3 岁 11 个月', time: '14:00', status: 'todo', c: 'var(--dim-cre)' },
+];
+
+const LEADS = [
+  { name: 'Chloe L.', initial: 'C', age: '4 岁 8 个月', intent: 'mid', c: 'var(--dim-mea)', sent: '今天 09:58 发送',
+    signals: ['打开 1 次', '阅读 1 分 40 秒', '看到了「下一步」', '未点击按钮'],
+    next: '她的强项是「测量与数据」。发一段陈老师的语音，邀请周末试听。' },
+  { name: 'Mia C.', initial: 'M', age: '4 岁 1 个月', intent: 'low', c: 'var(--dim-rea)', sent: '昨天 11:05 发送',
+    signals: ['发送后 26 小时未打开'],
+    next: '先发短信提醒，附记录老师 15 秒语音预告：「Mia 的拼图特别厉害」。' },
+  { name: 'Lucas Z.', initial: 'L', age: '3 岁 11 个月', intent: 'todo', c: 'var(--dim-cre)', sent: '今天 14:00 测评',
+    signals: ['家长关注：专注力', '录像：未授权'],
+    next: '测评结束 30 分钟内发出报告；重点回应「专注力」。' },
+];
+
+const GUIDE = [
+  { s: 'consent', role: 'parent', title: '测前：录像授权与 2 分钟问卷',
+    tips: ['试试：打开「录制精彩片段」再提交。之后老师端能否标记片段、家长报告有没有视频，都会跟着变。', '问卷里选的「最想了解」，会在报告里被逐条回答。'],
+    why: ['录像默认关闭、单独授权、随时可删', '家长的关注点在测前就交给老师'] },
+  { s: 'tlist', role: 'teacher', title: '记录老师：跟随主讲，记录 1 个孩子', alias: ['tlive'],
+    tips: ['线下场景：家长在多功能厅听讲座，林老师带 3 个孩子做题册，3 位记录老师各跟一个孩子。你是王老师，负责 Ethan。', '试试：按住底部「按住 说话」录一句备注，松开后 AI 自动整理并归到对应能力。', '把 Q2 的评分改成「萌芽」，再去看家长报告的雷达图和推荐怎么变。', '没有麦克风时用模拟语音；在普通浏览器里打开 HTML 文件可切换真实麦克风。'],
+    why: ['一人只记一个孩子，题目进度跟随主讲', '点选行为描述代替 A+/A/B/C', '语音比打字快约 2.9 倍，老师不用测完再补写', '策略标签记录「怎么做对的」'] },
+  { s: 'treview', role: 'teacher', title: '老师：AI 起草，逐条确认', alias: ['tsent'],
+    tips: ['每条草稿都标了依据；全部确认后才能发送。', '目标：讲座 11:10 结束前把报告推到家长手机，顾问在现场就能解读。'],
+    why: ['AI 只整理老师说过的话', '老师确认是发送前的硬门槛'] },
+  { s: 'report', role: 'parent', title: '家长：收到报告',
+    tips: ['点语音条听王老师原声（演示中由系统朗读原话）；右上角切换中 / EN。', '在「下一步」里预约一次 15 分钟解读，再去顾问端看看。'],
+    why: ['首屏 30 秒读懂：一句话 + 3 个标签', '老师原声建立信任，文字方便扫读和转发', '推荐课程必须写明依据，只有一个主按钮'] },
+  { s: 'crm', role: 'sales', title: '顾问：今日跟进',
+    tips: ['你刚才在家长端的操作（听语音、展开的能力、预约）会出现在 Ethan 的卡片上。'],
+    why: ['按意向排序，带着报告内容去聊', '信号只来自报告内的阅读和点击，并已告知家长'] },
+];
+
+</script>
+<script>
+(() => {
+'use strict';
+
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const uid = () => 'x' + Math.random().toString(36).slice(2, 9);
+const DIM = Object.fromEntries(DIMS.map(d => [d.id, d]));
+const TASK = Object.fromEntries(TASKS.map(t => [t.id, t]));
+const ITEMS = TASKS.flatMap(t => t.items.map(i => ({ ...i, task: t.id })));
+const QUAL = Object.fromEntries(QUALITIES.map(q => [q.id, q]));
+const KEY = 'prek-growth-demo-v2';
+const mmss = s => { s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+
+const IC = {
+  back: '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 4 6.5 10l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  close: '<svg width="18" height="18" viewBox="0 0 18 18"><path d="M4 4l10 10M14 4 4 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  more: '<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><circle cx="4" cy="10" r="1.7"/><circle cx="10" cy="10" r="1.7"/><circle cx="16" cy="10" r="1.7"/></svg>',
+  mic: '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="6" y="2" width="6" height="10" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 8.5a5.5 5.5 0 0 0 11 0M9 14v2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  kbd: '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1.5" y="4" width="15" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 7h1M8.5 7h1M12.5 7h1M4.5 10.5h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+  plus: '<svg width="18" height="18" viewBox="0 0 18 18"><path d="M9 4v10M4 9h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  play: '<svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor"><path d="M6 3.8v10.4c0 .6.7 1 1.2.6l7.6-5.2a.7.7 0 0 0 0-1.2L7.2 3.2c-.5-.4-1.2 0-1.2.6Z"/></svg>',
+  check: '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="m2.5 6.2 2.3 2.3 4.7-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  chev: '<svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  waves: '<svg class="waves" viewBox="0 0 18 18" aria-hidden="true"><circle cx="4" cy="9" r="1.8" fill="currentColor"/><path class="w2" d="M7.6 5.4a5 5 0 0 1 0 7.2" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/><path class="w3" d="M10.9 2.8a9 9 0 0 1 0 12.4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>',
+  lock: '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2.5" y="6" width="9" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M4.5 6V4.5a2.5 2.5 0 0 1 5 0V6" stroke="currentColor" stroke-width="1.3"/></svg>',
+};
+
+/* ---------- state ---------- */
+function fresh() {
+  const ratings = {}, chips = {};
+  TASKS.forEach(t => { Object.assign(ratings, t.sample.ratings); chips[t.id] = [...t.sample.chips]; });
+  return {
+    v: 2, screen: 'consent', visited: { consent: 1 },
+    consent: { video: false, research: false, submitted: false },
+    q: { lang: 'both', concerns: ['math', 'k'], likes: ['blocks'] },
+    ratings, chips,
+    notes: SAMPLE_NOTES.map(n => ({ ...n, source: 'sample', status: 'done' })),
+    highlights: [{ id: 'h2', task: 2, scene: 'rocket' }, { id: 'h11', task: 11, scene: 'alien' }],
+    qualities: Object.fromEntries(QUALITIES.map(q => [q.id, q.sample])),
+    task: 2, kbd: false, micMode: 'demo', scriptIdx: {},
+    review: { generated: false, confirmed: {}, edit: null, summary: null, startedAt: null, elapsed: null },
+    lang: 'zh', openDims: ['spa', 'exp'],
+    booking: null, trial: false, subscribed: false, shared: false, feedback: null,
+    an: { opens: 0, seconds: 0, plays: 0, dims: [], sawNext: false, lastOpen: null },
+  };
+}
+function load() {
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY));
+    if (s && s.v === 2) { s.highlights = s.highlights.filter(h => h.scene); s.notes.forEach(n => { delete n.audioUrl; if (n.status !== 'done') n.status = 'done'; }); return s; }
+  } catch (e) { /* storage unavailable */ }
+  return null;
+}
+let S = load() || fresh();
+let saveT;
+function save() {
+  clearTimeout(saveT);
+  saveT = setTimeout(() => {
+    try {
+      const c = { ...S, notes: S.notes.map(n => { const m = { ...n }; delete m.audioUrl; return m; }), highlights: S.highlights.filter(h => h.scene) };
+      localStorage.setItem(KEY, JSON.stringify(c));
+    } catch (e) { /* ignore */ }
+  }, 150);
+}
+
+/* ---------- scoring ---------- */
+function scores() {
+  const acc = {}; DIMS.forEach(d => (acc[d.id] = []));
+  ITEMS.forEach(it => { const r = S.ratings[it.id]; if (r) acc[it.dim].push(r); });
+  const out = {};
+  for (const k in acc) out[k] = acc[k].length ? acc[k].reduce((a, b) => a + b, 0) / acc[k].length : null;
+  return out;
+}
+const levelOf = s => (s == null ? null : s >= 3.5 ? 4 : s >= 2.75 ? 3 : s >= 1.75 ? 2 : 1);
+const band = s => (s >= 2.75 ? 'hi' : 'lo');
+const ranked = sc => DIMS.map(d => d.id).filter(id => sc[id] != null).sort((a, b) => sc[b] - sc[a]);
+function strengths(sc) { const r = ranked(sc); const s = r.filter(id => sc[id] >= 2.75).slice(0, 2); return s.length ? s : r.slice(0, 1); }
+function growth(sc) { const r = ranked(sc).reverse(); const g = r.filter(id => sc[id] < 2.75).slice(0, 2); return g.length ? g : r.slice(0, 1); }
+function recommend(sc) {
+  const v = Object.values(sc).filter(x => x != null);
+  const secure = v.filter(x => x >= 2.75).length, ext = v.filter(x => x >= 3.5).length;
+  if (ext >= 4 && sc.rea >= 3 && sc.num >= 3.5) return { id: 'challenge', zh: 'PreK 学年课 · 挑战组', en: 'PreK school-year program, challenge group', rule: '4 个以上维度达到「拔尖」，且数感、推理达标', secure };
+  if (secure >= 3) return { id: 'standard', zh: 'PreK 学年课（秋季 + 春季，36 讲）', en: 'PreK school-year program (Fall + Spring, 36 lessons)', rule: '3 个以上维度达到「熟练」', secure };
+  return { id: 'bridge', zh: '先补 L1–L8 衔接内容，再进入学年课', en: 'Catch up on bridge lessons L1–L8, then join the school-year program', rule: '多数维度还在「发展中」或「萌芽」', secure };
+}
+function lessonPicks(sc) {
+  const g = growth(sc), st = strengths(sc), out = [], seen = new Set();
+  const add = (dim, i, role) => { const l = LESSONS[dim] && LESSONS[dim][i]; if (!l) return; const k = l.term + l.no; if (seen.has(k)) return; seen.add(k); out.push({ ...l, dim, role }); };
+  if (g[0] && sc[g[0]] < 2.75) { add(g[0], 0, 'focus'); add(g[0], 1, 'focus'); }
+  if (g[1] && sc[g[1]] < 2.75) add(g[1], 0, 'focus');
+  st.forEach(d => add(d, 0, 'strength'));
+  return out.slice(0, 5);
+}
+const sampleRatings = () => TASKS.every(t => Object.entries(t.sample.ratings).every(([k, v]) => S.ratings[k] === v));
+function summary(sc) {
+  if (S.review.edit) return S.review.edit;
+  if (S.review.summary) return S.review.summary;
+  const n = [...S.notes].reverse().find(x => x.kind === 'summary' && x.status === 'done');
+  if (n && sampleRatings()) return { zh: n.zh, en: n.en, note: n.id };
+  const st = strengths(sc), g = growth(sc)[0];
+  return {
+    zh: `这次 ${CHILD.name} 在「${DIM[st[0]].zh}」${st[1] ? `和「${DIM[st[1]].zh}」` : ''}上表现最突出；接下来最值得练的是「${DIM[g].zh}」。`,
+    en: `${CHILD.name} was strongest in ${DIM[st[0]].en}${st[1] ? ` and ${DIM[st[1]].en}` : ''} this time; the most valuable next step is ${DIM[g].en}.`,
+    note: n && n.id,
+  };
+}
+
+/* ---------- AI (Claude via the artifact runtime, or local fallback) ---------- */
+const AI = { fn: null, state: 'checking' };
+try {
+  if (window.claude && typeof window.claude.use === 'function') {
+    window.claude.use('sample').then(fn => { AI.fn = fn || null; AI.state = fn ? 'ready' : 'off'; renderGuide(); if (S.screen === 'treview') render(); })
+      .catch(() => { AI.state = 'off'; renderGuide(); });
+  } else AI.state = 'off';
+} catch (e) { AI.state = 'off'; }
+function aiFailed(e) {
+  const code = e && e.code;
+  if (['not_granted', 'sampling_disabled', 'not_declared', 'capability_disabled', 'capability_removed'].includes(code)) { AI.fn = null; AI.state = 'off'; toast('未授权使用 Claude，已切换为本地整理'); renderGuide(); }
+  else if (code === 'rate_limited') toast('Claude 调用太频繁，稍后再试');
+}
+const FILLERS = /(嗯+|呃+|啊+|那个|就是说)[，,、\s]*/g;
+function localPolish(raw) {
+  let t = String(raw).replace(FILLERS, '').replace(/\s+/g, ' ').replace(/^[，,。\s]+/, '').trim();
+  if (t && !/[。！？.!?」”]$/.test(t)) t += '。';
+  return t;
+}
+const DIM_WORDS = { num: /数|个|加|几|手指|一样多/, spa: /拼|图形|三角|迷宫|方向|位置|转/, rea: /规律|推理|排除|条件/, mea: /统计|表|长短|分类|比较/, exp: /说|讲|表达|解释|描述|理由|为什么/, cre: /画|创意|想象|颜色|故事/ };
+function guessDim(raw, task) {
+  for (const k of ['exp', 'rea', 'mea', 'spa', 'num', 'cre']) if (DIM_WORDS[k].test(raw)) return k;
+  return TASK[task] ? TASK[task].items[0].dim : null;
+}
+async function polish(n) {
+  if (n.script) {
+    await sleep(1100);
+    Object.assign(n, { zh: n.script.zh, en: n.script.en, dim: n.script.dim, kind: n.script.kind, status: 'done', by: 'preset' });
+    delete n.script; render(); return;
+  }
+  const t = TASK[n.task];
+  if (AI.fn && n.raw) {
+    try {
+      const prompt = `你在帮一位学前数学测评老师整理现场口述备注，写给家长看。\n规则：只用老师说到的事实，不添加、不夸大；中文最多 2 句，先写看到的具体行为，再写一句这说明什么，语气温和具体；同时给出自然的英文版。\n判断最相关的能力维度 dim（num 数感与运算 / spa 空间与图形 / rea 规律与推理 / mea 测量与数据 / exp 数学表达 / cre 创意与动手 / none）以及类型 kind（strength 优势 / growth 待提升 / obs 中性观察）。\n孩子：${CHILD.name}，4 岁 3 个月。当前题目：${t ? `Q${t.id} ${t.title}（${t.prompt.zh}）` : '测评收尾的整体印象'}。\n老师原话："""${n.raw}"""\n只回复 JSON，例如 {"zh":"…","en":"…","dim":"spa","kind":"strength"}`;
+      const out = await AI.fn.json(prompt, { modelTier: 'quick' });
+      if (out && typeof out.zh === 'string') {
+        Object.assign(n, { zh: out.zh, en: typeof out.en === 'string' ? out.en : null, dim: DIM[out.dim] ? out.dim : (n.dim || null), kind: ['strength', 'growth', 'obs'].includes(out.kind) ? out.kind : 'obs', status: 'done', by: 'claude' });
+        render(); return;
+      }
+    } catch (e) { aiFailed(e); }
+  }
+  await sleep(700);
+  Object.assign(n, { zh: localPolish(n.raw) || '（没有识别到文字，可改用键盘输入）', en: null, dim: n.dim || guessDim(n.raw, n.task), kind: n.kind || 'obs', status: 'done', by: 'local' });
+  render();
+}
+async function aiRewriteSummary() {
+  if (!AI.fn) return;
+  const sc = scores();
+  const dims = DIMS.map(d => `${d.zh} ${sc[d.id] != null ? sc[d.id].toFixed(1) : '-'}/4（${LEVELS[levelOf(sc[d.id])].zh}）`).join('；');
+  const obs = S.notes.filter(n => n.status === 'done').map(n => '- ' + n.zh).join('\n');
+  const qual = QUALITIES.map(q => `${q.zh}：${QLEVELS[S.qualities[q.id]].zh}`).join('；');
+  const prompt = `根据下面的 4 岁孩子测评数据，给家长写一句话总结：中文不超过 55 字，英文不超过 35 个词。先说最突出的优势，再说最值得练的一点。只用数据里的事实，不排名、不比较其他孩子、不制造焦虑。\n维度得分：${dims}\n学习品质：${qual}\n老师观察：\n${obs}\n只回复 JSON：{"zh":"…","en":"…"}`;
+  S.review.busy = true; render();
+  try {
+    const out = await AI.fn.json(prompt, { modelTier: 'quick', cache: false });
+    if (out && out.zh) { S.review.summary = { zh: out.zh, en: out.en || null, ai: true }; S.review.edit = null; delete S.review.confirmed.summary; }
+  } catch (e) { aiFailed(e); }
+  S.review.busy = false; render();
+}
+
+/* ---------- small pieces ---------- */
+const L = () => S.lang;
+const tx = o => (o == null ? '' : typeof o === 'string' ? o : (o[L()] ?? o.zh));
+const dimChip = (id, lang = 'zh') => id ? `<span class="chip dim" style="--c:${DIM[id].color}">${esc(lang === 'en' ? DIM[id].en : DIM[id].zh)}</span>` : '';
+const levelBar = (lv, c) => `<span class="levelbar" style="--c:${c}" aria-hidden="true">${[1, 2, 3, 4].map(i => `<i class="${i <= lv ? 'f' : ''}"></i>`).join('')}</span>`;
+function voiceBubble(n, side, opts = {}) {
+  const w = Math.min(210, 76 + n.dur * 6);
+  const who = side === 'sent' ? '我' : TEACHER.initial;
+  return `<div class="msg ${side}">
+    <div class="avatar" style="--c:${side === 'sent' ? 'var(--dim-num)' : 'var(--dim-exp)'}">${who}</div>
+    <div class="msg-body">
+      <button class="voice" style="width:${w}px" data-act="play" data-id="${n.id}" aria-label="播放语音 ${n.dur} 秒">${IC.waves}<span class="dur">${n.dur}″</span>${opts.unread && !n.read ? '<i class="unread"></i>' : ''}</button>
+      ${noteText(n, opts)}
+    </div></div>`;
+}
+function noteText(n, opts) {
+  if (n.status !== 'done') {
+    return `<div class="bubble-text"><div class="raw">${esc(n.raw || '…')}</div><div class="ai-row"><span class="ai pending"><span class="thinking"><i></i><i></i><i></i></span>AI 整理中</span></div></div>`;
+  }
+  const lang = opts.lang || 'zh';
+  const text = lang === 'en' ? (n.en || n.zh) : n.zh;
+  const showRaw = opts.showRaw && S._raw === n.id;
+  const by = n.by === 'claude' ? 'Claude 整理' : n.by === 'local' ? '本地整理' : 'AI 整理';
+  return `<div class="bubble-text">
+    <div>${esc(text)}${lang === 'en' && !n.en ? ' <span class="faint tiny">(Chinese original)</span>' : ''}</div>
+    ${showRaw ? `<div class="raw">${lang === 'en' ? 'Transcript' : '原话转写'}：${esc(n.raw)}</div>` : ''}
+    <div class="ai-row">${n.dim ? dimChip(n.dim, lang) : ''}<span class="ai">${IC.check}${lang === 'en' ? 'Teacher approved' : opts.parent ? '老师已确认' : by}</span><button data-act="raw" data-id="${n.id}">${showRaw ? (lang === 'en' ? 'Hide' : '收起') : (lang === 'en' ? 'Original words' : '看原话')}</button></div>
+  </div>`;
+}
+function radar(sc, opts = {}) {
+  const R = opts.r || 104, lang = opts.lang || 'zh';
+  const ids = DIMS.map(d => d.id);
+  const pt = (i, v) => { const a = -Math.PI / 2 + i * Math.PI * 2 / ids.length; return [Math.cos(a) * R * v / 4, Math.sin(a) * R * v / 4]; };
+  const poly = v => ids.map((id, i) => pt(i, typeof v === 'number' ? v : (v[id] || 0)).map(n => n.toFixed(1)).join(',')).join(' ');
+  if (opts.mini) {
+    return `<svg viewBox="-60 -60 120 120" width="52" height="52" aria-hidden="true"><polygon points="${poly(4).replace(/[\d.-]+,[\d.-]+/g, p => p)}" fill="none" stroke="var(--line)" stroke-width="4"/><polygon points="${poly(sc).replace(/([\d.-]+),([\d.-]+)/g, (m, x, y) => `${(x * 0.55).toFixed(1)},${(y * 0.55).toFixed(1)}`)}" fill="var(--child)" fill-opacity="0.35" stroke="var(--child)" stroke-width="4"/></svg>`;
+  }
+  const rings = [1, 2, 3, 4].map(v => `<polygon points="${poly(v)}" fill="none" stroke="var(--line)" stroke-width="${v === 4 ? 1.4 : 1}"/>`).join('');
+  const spokes = ids.map((id, i) => { const [x, y] = pt(i, 4); return `<line x1="0" y1="0" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="var(--line)"/>`; }).join('');
+  const bandPath = `<path d="M${poly(3).split(' ').join(' L')} Z M${poly(2).split(' ').join(' L')} Z" fill="var(--band)" fill-rule="evenodd"/>`;
+  const dots = ids.map((id, i) => { const [x, y] = pt(i, sc[id] || 0); return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="${DIM[id].color}" stroke="var(--surface)" stroke-width="2"/>`; }).join('');
+  const labels = ids.map((id, i) => {
+    const a = -Math.PI / 2 + i * Math.PI * 2 / ids.length;
+    const x = Math.cos(a) * (R + 26), y = Math.sin(a) * (R + 22);
+    const anchor = Math.abs(Math.cos(a)) < 0.2 ? 'middle' : Math.cos(a) > 0 ? 'start' : 'end';
+    const lv = levelOf(sc[id]);
+    return `<g class="axis-btn" data-act="jump" data-dim="${id}" role="button" tabindex="0" aria-label="${esc(DIM[id][lang])}">
+      <text class="lab" x="${x.toFixed(1)}" y="${(y - 3).toFixed(1)}" text-anchor="${anchor}" font-size="15" font-weight="700" fill="var(--ink)">${esc(DIM[id].short[lang])}</text>
+      <text x="${x.toFixed(1)}" y="${(y + 13).toFixed(1)}" text-anchor="${anchor}" font-size="12.5" font-weight="600" fill="${DIM[id].color}">${lv ? esc(LEVELS[lv][lang]) : '—'}</text></g>`;
+  }).join('');
+  const ringLbl = [1, 2, 3, 4].map(v => `<text x="4" y="${(-R * v / 4 + 4).toFixed(1)}" font-size="9" fill="var(--ink-3)">${esc(LEVELS[v][lang])}</text>`).join('');
+  return `<svg class="radar" viewBox="-178 -146 356 292" role="img" aria-label="${lang === 'en' ? 'Radar chart of six areas' : '六个能力维度雷达图'}">
+    ${bandPath}${rings}${spokes}
+    <polygon points="${poly(sc)}" fill="var(--child)" fill-opacity="0.22" stroke="var(--child)" stroke-width="2.4" stroke-linejoin="round"/>
+    ${dots}${labels}</svg>`;
+}
+
+/* Highlight "clips": drawn animations stand in for real footage of a child. */
+function sceneSVG(kind) {
+  if (kind === 'rocket') return `<svg viewBox="0 0 320 200" aria-hidden="true"><rect width="320" height="200" fill="#1d2a52"/>
+    ${[[30, 30], [70, 150], [280, 40], [250, 160], [120, 20], [300, 110]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.6" fill="#ffffff" opacity=".7"/>`).join('')}
+    <polygon points="160,26 188,76 132,76" fill="#ffffff"/><rect x="134" y="76" width="52" height="74" fill="#ffffff"/><circle cx="160" cy="104" r="11" fill="#7fb3ff" stroke="#1d2a52" stroke-width="3"/>
+    <g fill="none" stroke="#ffffff" stroke-dasharray="4 4" opacity=".55"><polygon points="134,112 134,150 108,150"/><polygon points="186,112 186,150 212,150"/><polygon points="146,150 174,150 160,174"/></g>
+    <polygon class="s-tri t1" points="134,112 134,150 108,150" fill="#f2a33a"/><polygon class="s-tri t2" points="186,112 186,150 212,150" fill="#f2a33a"/><polygon class="s-tri t3" points="146,150 174,150 160,174" fill="#ff7a59"/></svg>`;
+  if (kind === 'maze') {
+    const route = 'M 60 20 C 60 90, 140 60, 150 110 S 230 170, 285 150';
+    return `<svg viewBox="0 0 320 200" aria-hidden="true"><rect width="320" height="200" fill="#bfe08f"/>
+      <g fill="none" stroke="#f3dfb0" stroke-width="16" stroke-linecap="round"><path d="M 160 20 C 170 80, 90 120, 40 170"/><path d="M 260 20 C 250 70, 300 90, 200 130"/><path d="${route}"/></g>
+      <path class="s-trace" d="${route}" fill="none" stroke="#e36d0a" stroke-width="4" stroke-linecap="round"/>
+      <rect x="276" y="140" width="22" height="20" rx="3" fill="#f2a33a" stroke="#7a4b10" stroke-width="2"/><circle cx="283" cy="148" r="2" fill="#2b2b2b"/><circle cx="291" cy="148" r="2" fill="#2b2b2b"/>
+      <circle class="s-walker" r="8" fill="#ffffff" stroke="#e36d0a" stroke-width="3" style="offset-path: path('${route}')"/></svg>`;
+  }
+  if (kind === 'alien') return `<svg viewBox="0 0 320 200" aria-hidden="true"><rect width="320" height="200" fill="#2b1d52"/>
+    <path class="s-draw" d="M146 62 L134 30" stroke="#8fd16a" stroke-width="4" stroke-linecap="round"/><path class="s-draw" d="M174 62 L186 30" stroke="#8fd16a" stroke-width="4" stroke-linecap="round"/>
+    <circle class="s-pop d4" cx="134" cy="28" r="6" fill="#ffd34d"/><circle class="s-pop d4" cx="186" cy="28" r="6" fill="#ffd34d"/>
+    <circle cx="160" cy="104" r="48" fill="#8fd16a"/>
+    <g class="s-pop d1"><circle cx="138" cy="96" r="10" fill="#ffffff"/><circle cx="140" cy="98" r="4.5" fill="#1a1a1a"/></g>
+    <g class="s-pop d2"><circle cx="160" cy="84" r="10" fill="#ffffff"/><circle cx="162" cy="86" r="4.5" fill="#1a1a1a"/></g>
+    <g class="s-pop d3"><circle cx="182" cy="96" r="10" fill="#ffffff"/><circle cx="184" cy="98" r="4.5" fill="#1a1a1a"/></g>
+    <path d="M144 124 Q160 136 176 124" stroke="#1a1a1a" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <g class="s-pop d5"><ellipse cx="138" cy="160" rx="16" ry="8" fill="#f2a33a"/><ellipse cx="182" cy="160" rx="16" ry="8" fill="#f2a33a"/></g>
+    <g class="s-pop d6"><rect x="206" y="36" width="104" height="40" rx="10" fill="#ffffff"/><text x="258" y="53" text-anchor="middle" font-size="12" font-weight="700" fill="#2b1d52">He's Zork!</text><text x="258" y="68" text-anchor="middle" font-size="10" fill="#2b1d52">He lives on the moon</text></g></svg>`;
+  return `<svg viewBox="0 0 320 200" aria-hidden="true"><rect width="320" height="200" fill="#26324a"/><rect x="40" y="60" width="240" height="80" rx="12" fill="#ffffff" opacity=".12"/><text x="160" y="106" text-anchor="middle" font-size="14" fill="#ffffff">片段占位</text></svg>`;
+}
+const SCENE_CAP = {
+  rocket: { zh: 'Q2 拼火箭：先把三角形转半圈，再一次放对', en: 'Task 2: turns the triangle half a turn, then places it first try' },
+  maze: { zh: 'Q9 迷宫：先看一遍，再一次走到 Squary', en: 'Task 9: scans first, then traces to Squary in one go' },
+  alien: { zh: 'Q11 外星人朋友 Zork：三只眼睛和火箭鞋', en: 'Task 11: Zork the alien, three eyes and rocket shoes' },
+};
+function clip(h, lang) {
+  const t = TASK[h.task];
+  const cap = h.scene && SCENE_CAP[h.scene] ? SCENE_CAP[h.scene][lang] : (lang === 'en' ? `Task ${h.task}: ${t.titleEn}` : `Q${h.task} ${t.title}`);
+  const body = h.url ? `<video src="${h.url}" controls playsinline></video>` :
+    `${sceneSVG(h.scene)}<span class="tag">${lang === 'en' ? 'Animated stand-in' : '动画示意'}</span><button class="play" data-act="scene" aria-label="播放"><span>${IC.play}</span></button><span class="cap">${esc(cap)}</span>`;
+  return `<div class="clip"><div class="scene" data-scene="${h.scene || ''}">${body}</div><div class="clip-cap">${esc(cap)}</div><div class="clip-meta">0:${String(18 + (h.task % 9)).padStart(2, '0')} · ${lang === 'en' ? 'recorded by ' + TEACHER.name.en : TEACHER.name.zh + '录制'}</div></div>`;
+}
+
+/* ---------- screens ---------- */
+const SCREENS = {};
+
+SCREENS.consent = () => {
+  const c = S.consent, q = S.q;
+  const opt = (grp, id, label, on) => `<button class="opt ${on ? 'on' : ''}" data-act="q" data-g="${grp}" data-id="${id}" aria-pressed="${on}">${esc(label)}</button>`;
+  return `<div class="scr">
+  <div class="bar wxbar"><div class="side"><span class="icon-btn">${IC.close}</span></div><h1>测评预约确认</h1><div class="side r"><span class="icon-btn">${IC.more}</span></div></div>
+  ${c.submitted ? `<div class="pad"><div class="booked"><b>${IC.check} 已提交</b><span>王老师会在测评前看到你的回答。测评当天你在多功能厅听讲座，Ethan 在隔壁教室做游戏测评；讲座结束前报告会发到你的微信。</span><button class="btn wx sm" style="align-self:flex-start" data-act="go" data-to="tlist">切换到老师端看看 →</button></div></div>` : ''}
+  <div class="hero-strip">
+    <div class="row"><div class="avatar round" style="--c:var(--dim-spa)">E</div><div class="grow"><b>Ethan 的 PreK 成长测评</b><div class="small faint">已预约 · 测评前请完成下面两步</div></div></div>
+    <dl class="appt"><dt>时间</dt><dd>10 月 22 日（周四）10:20 签到</dd><dt>家长</dt><dd>${esc(SESSION.talk.title)} · ${SESSION.talk.place} · ${SESSION.talk.time}</dd><dt>孩子</dt><dd>3 人一组游戏化测评 · 约 25 分钟 · 每个孩子有一位老师专门记录</dd></dl>
+  </div>
+  <div class="pad stack">
+    <div class="card">
+      <div class="sec-title">① 2 分钟，帮老师更了解 Ethan</div>
+      <div class="q-label">孩子在家主要说</div>
+      <div class="opt-grid">${HOME_LANG.map(o => opt('lang', o.id, o.zh, q.lang === o.id)).join('')}</div>
+      <div class="q-label">你最想从这次测评了解什么？<span class="faint small">（最多 2 项）</span></div>
+      <div class="opt-grid">${CONCERNS.map(o => opt('concerns', o.id, o.zh, q.concerns.includes(o.id))).join('')}</div>
+      <div class="q-label">Ethan 平时喜欢</div>
+      <div class="opt-grid">${LIKES.map(o => opt('likes', o.id, o.zh, q.likes.includes(o.id))).join('')}</div>
+    </div>
+    <div class="card">
+      <div class="sec-title">② 录像授权（可选）</div>
+      <p class="small muted">记录老师可以把 Ethan 作答的精彩瞬间录成短片段，放进报告给你看。</p>
+      <dl class="facts"><dt>录什么</dt><dd>作答片段，每段不超过 30 秒，不录全程</dd><dt>谁能看</dt><dd>你和本次记录老师；转发给家人的版本不含视频</dd><dt>存多久</dt><dd>90 天后自动删除，你也可以随时删除</dd><dt>不用于</dt><dd>宣传、广告、AI 训练</dd></dl>
+      <div class="consent-row"><div class="grow"><b>录制精彩片段，放进 Ethan 的报告</b><p>不授权也能正常测评，报告里只是没有视频</p></div><button class="switch ${c.video ? 'on' : ''}" data-act="consent" data-k="video" role="switch" aria-checked="${c.video}" aria-label="录制精彩片段"></button></div>
+      <div class="consent-row"><div class="grow"><b>匿名用于教研改进</b><p>去掉姓名和人脸后，用于改进题目和评分标准</p></div><button class="switch ${c.research ? 'on' : ''}" data-act="consent" data-k="research" role="switch" aria-checked="${c.research}" aria-label="匿名用于教研"></button></div>
+    </div>
+    <button class="btn primary block" data-act="submit-consent">${c.submitted ? '更新我的选择' : '提交'}</button>
+    <p class="tiny faint" style="text-align:center">可随时在报告页撤回授权并删除片段</p>
+  </div></div>`;
+};
+
+SCREENS.tlist = () => {
+  const video = S.consent.video;
+  const kid = k => `<div class="card"><div class="kid-card">
+      <div class="avatar" style="--c:${k.c}">${k.initial}</div>
+      <div class="grow">
+        <div class="row between"><b>${esc(k.name)}</b><span class="tiny faint">${esc(k.age)}</span></div>
+        <div class="small muted">记录：${esc(k.recorder)}</div>
+        <div class="kid-meta">${k.me ? `<span class="chip">中英双语</span><span class="chip">家长关注：${S.q.concerns.map(id => CONCERNS.find(c => c.id === id).zh).join('、') || '未填写'}</span><span class="chip">${video ? '录像：已授权' : '录像：未授权'}</span>` : `<span class="chip">${esc(k.progress)}</span>`}</div>
+      </div></div>
+      ${k.me ? `<button class="btn wx block" data-act="go" data-to="tlive">进入记录 · 跟随主讲 Q${S.task === 'wrap' ? 11 : S.task}</button>` : ''}
+    </div>`;
+  return `<div class="scr">
+  <div class="t-head"><div class="tiny faint">10 月 22 日 · ${SESSION.group} · ${SESSION.room} · ${SESSION.time}</div><h2>本场测评</h2><div class="small muted">主讲：${SESSION.lead} · 你是记录老师王老师</div></div>
+  <div class="pad stack">
+    <div class="card" style="gap:6px"><div class="row between"><b>同场家长讲座</b><span class="badge" style="--c:var(--good)">进行中</span></div><div class="small muted">${esc(SESSION.talk.title)} · ${SESSION.talk.place} · ${SESSION.talk.ends} 结束</div><div class="small">目标：<b>${SESSION.talk.ends} 前</b>把 3 份报告推到家长手机，顾问在现场解读。</div></div>
+    ${SESSION.kids.map(kid).join('')}
+    <p class="tiny faint">主讲老师翻页时，三位记录老师的题目卡会同步切换；记录老师只盯自己负责的孩子。</p>
+  </div></div>`;
+};
+
+function rubOpt(item, lv) {
+  const on = S.ratings[item.id] === lv;
+  return `<button class="rub ${on ? 'on' : ''}" style="--c:${DIM[item.dim].color}" data-act="rate" data-item="${item.id}" data-lv="${lv}" aria-pressed="${on}"><b>${LEVELS[lv].zh}<span class="old">原 ${LEVELS[lv].old}</span></b><span>${esc(item.rubric[lv])}</span></button>`;
+}
+function qstrip() {
+  return `<div class="qstrip" role="tablist">${TASKS.map(t => {
+    const rated = t.items.every(i => S.ratings[i.id]);
+    return `<button class="qdot ${rated ? 'rated' : ''} ${S.task === t.id ? 'cur' : ''}" style="--c:${DIM[t.items[0].dim].color}" data-act="task" data-n="${t.id}" aria-label="第 ${t.id} 题">${t.id}</button>`;
+  }).join('')}<button class="qdot wrap ${S.task === 'wrap' ? 'cur' : ''}" data-act="task" data-n="wrap">收尾</button></div>`;
+}
+function talkbar() {
+  return `<div class="talkbar">
+    <div class="talk-row">
+      <button class="round-btn" data-act="kbd" aria-label="${S.kbd ? '切换到语音' : '切换到键盘'}">${S.kbd ? IC.mic : IC.kbd}</button>
+      ${S.kbd ? `<input class="talk-input" id="talkInput" placeholder="输入观察，回车发送" enterkeyhint="send" autocomplete="off"><button class="btn wx sm" data-act="send-text">发送</button>` : `<button class="talk-btn" id="talkBtn">按住 说话</button>`}
+      <button class="round-btn" data-act="plus" aria-label="更多">${IC.plus}</button>
+    </div>
+    <div class="talk-hint"><span>${S.micMode === 'mic' ? '麦克风录音 · 实时转写' : '演示：模拟语音识别'} · 现场低声说或课后口述</span><button data-act="mic">${S.micMode === 'mic' ? '示例语音' : '真实麦克风'}</button></div>
+  </div>`;
+}
+SCREENS.tlive = () => {
+  const head = `<div class="live-top"><div class="bar"><div class="side"><button class="icon-btn" data-act="go" data-to="tlist" aria-label="返回">${IC.back}</button></div><h1>Ethan · 记录中</h1><div class="side r"><span class="badge" style="--c:${S.consent.video ? 'var(--bad)' : 'var(--ink-3)'}">${S.consent.video ? '● 可录' : '未授权录像'}</span></div></div>${qstrip()}</div>`;
+  if (S.task === 'wrap') return `<div class="scr">${head}<div class="pad stack">${wrapCard()}</div>${talkbar()}</div>`;
+  const t = TASK[S.task];
+  const notes = S.notes.filter(n => n.task === t.id);
+  const hls = S.consent.video ? S.highlights.filter(h => h.task === t.id) : [];
+  return `<div class="scr">${head}
+  <div class="pad stack">
+    <div class="task-card">
+      <div class="row between"><span class="row" style="gap:6px">${t.items.map(i => dimChip(i.dim)).filter((v, i, a) => a.indexOf(v) === i).join('')}</span><span class="tiny faint">主讲进度 · 第 ${t.id} / 11 题</span></div>
+      <div class="task-title">Q${t.id} ${esc(t.title)}</div>
+      <div class="say"><span class="lbl">主讲老师对孩子说</span><span class="en">${esc(t.prompt.en)}</span><span class="zh">${esc(t.prompt.zh)}</span></div>
+      <div class="tiny faint">教具：${esc(t.materials)}${t.revised ? ' · 题干已修订（原题「多几片」有歧义）' : ''}</div>
+      ${t.items.map(it => `<div class="item-label">评分 · ${esc(it.label)}</div><div class="rubric">${[4, 3, 2, 1].map(lv => rubOpt(it, lv)).join('')}</div>`).join('')}
+      <div class="item-label">看到的策略 <span class="faint tiny">可多选</span></div>
+      <div class="row wrap" style="gap:6px">${t.chips.map(c => `<button class="chip ${S.chips[t.id].includes(c) ? 'on' : ''}" data-act="chip" data-c="${esc(c)}">${esc(c)}</button>`).join('')}</div>
+      <div class="task-nav"><button class="btn ghost" data-act="prev" ${t.id === 1 ? 'disabled' : ''}>上一题</button><button class="btn ink" data-act="next">${t.id === 11 ? '去收尾' : '下一题'}</button></div>
+    </div>
+    <div class="row between"><b>语音备注</b><span class="tiny faint">按住底部按钮说话，AI 自动整理归类</span></div>
+    <div class="thread">${notes.length ? notes.map(n => voiceBubble(n, 'sent')).join('') : '<div class="thread-empty">这题还没有备注。按住「按住 说话」试一试。</div>'}</div>
+    ${hls.length ? `<b>本题精彩片段</b><div class="clips">${hls.map(h => clip(h, 'zh')).join('')}</div>` : ''}
+  </div>${talkbar()}</div>`;
+};
+function wrapCard() {
+  const sumNotes = S.notes.filter(n => n.task === 'wrap');
+  const rated = ITEMS.filter(i => S.ratings[i.id]).length;
+  return `<div class="task-card">
+    <div class="task-title">收尾：学习品质与整体印象</div>
+    <div class="small muted">已评分 ${rated} / ${ITEMS.length} 项 · 语音备注 ${S.notes.filter(n => n.task !== 'wrap').length} 条</div>
+    <div>${QUALITIES.map(q => `<div class="qual"><div><b>${q.zh}</b><div class="tiny faint">${esc(q.obs.zh)}</div></div><div class="seg">${[3, 2, 1].map(v => `<button class="${S.qualities[q.id] === v ? 'on' : ''}" data-act="qual" data-q="${q.id}" data-v="${v}">${QLEVELS[v].zh}</button>`).join('')}</div></div>`).join('')}</div>
+    <b>整体印象</b>
+    <div class="thread">${sumNotes.map(n => voiceBubble(n, 'sent')).join('') || '<div class="thread-empty">按住说 20–30 秒整体印象</div>'}</div>
+    <button class="btn primary block" data-act="generate">生成报告草稿 →</button>
+  </div>`;
+}
+
+SCREENS.treview = () => {
+  const head = `<div class="bar"><div class="side"><button class="icon-btn" data-act="go" data-to="tlive" aria-label="返回">${IC.back}</button></div><h1>报告草稿 · Ethan</h1><div class="side r"></div></div>`;
+  if (!S.review.generated) {
+    return `<div class="scr">${head}<div class="gen" id="gen">${['汇总 14 项评分到 6 个维度', '整理 ' + S.notes.length + ' 条语音备注', '生成每个维度的在家小游戏', '匹配学年课里最相关的课次', '翻译英文版'].map((s, i) => `<div class="gen-step" data-i="${i}"><span class="ck">${IC.check}</span>${s}</div>`).join('')}</div></div>`;
+  }
+  const sc = scores(), sm = summary(sc), st = strengths(sc), g = growth(sc), rec = recommend(sc), C = S.review.confirmed;
+  const blocks = ['summary', 'strengths', 'growth', 'home', 'path'];
+  const nOk = blocks.filter(b => C[b]).length;
+  const acts = (k, extra = '') => `<div class="draft-actions">${C[k] ? `<span class="badge" style="--c:var(--good)">${IC.check} 已确认</span><button class="btn sm ghost" data-act="unconfirm" data-k="${k}">撤回</button>` : `<button class="btn sm wx" data-act="confirm" data-k="${k}">确认</button>`}${extra}</div>`;
+  const ev = d => ITEMS.filter(i => i.dim === d && S.ratings[i.id]).map(i => `Q${i.task} ${LEVELS[S.ratings[i.id]].zh}`).join(' · ');
+  const editing = S.review.editing;
+  return `<div class="scr">${head}
+  <div class="pad stack">
+    <div class="card" style="gap:6px"><div class="small">AI 根据你的 <b>${ITEMS.filter(i => S.ratings[i.id]).length} 项评分</b>、<b>${S.notes.length} 条语音备注</b>和 <b>5 项学习品质</b>起草。每条都标了依据，确认后才能发送。</div><div class="tiny faint">家长版语言：中文 + English · ${AI.fn ? 'Claude 已连接，可重写' : '演示模式：预置整理结果'}</div></div>
+    <div class="draft ${C.summary ? 'ok' : ''}"><div class="draft-h"><h3>一句话总结</h3><span class="tiny faint">首屏展示</span></div>
+      ${editing ? `<textarea class="edit-area" id="editArea">${esc(sm.zh)}</textarea><div class="draft-actions"><button class="btn sm wx" data-act="save-edit">保存</button><button class="btn sm ghost" data-act="cancel-edit">取消</button></div>` : `<p>${esc(sm.zh)}</p><div class="src">依据：${sm.note ? '<span>整体印象语音</span>' : ''}${st.map(d => `<span>${DIM[d].zh} ${ev(d)}</span>`).join('')}${S.review.edit ? '<span>老师已修改</span>' : ''}${S.review.summary && S.review.summary.ai ? '<span>Claude 重写</span>' : ''}</div>
+      ${acts('summary', `<button class="btn sm ghost" data-act="edit">修改</button>${AI.fn ? `<button class="btn sm ghost" data-act="rewrite" ${S.review.busy ? 'disabled' : ''}>${S.review.busy ? '重写中…' : '用 Claude 重写'}</button>` : ''}`)}`}
+    </div>
+    <div class="draft ${C.strengths ? 'ok' : ''}"><div class="draft-h"><h3>优势（${st.length}）</h3></div>
+      ${st.map(d => `<div class="row" style="align-items:flex-start">${dimChip(d)}<span class="small">${LEVELS[levelOf(sc[d])].zh} · ${esc(MEANING[d][band(sc[d])].zh.split('。')[0])}。</span></div>`).join('')}
+      <div class="src">依据：${st.map(d => `<span>${ev(d)}</span>`).join('')}</div>${acts('strengths')}</div>
+    <div class="draft ${C.growth ? 'ok' : ''}"><div class="draft-h"><h3>下一步可以加强（${g.length}）</h3></div>
+      ${g.map(d => `<div class="row" style="align-items:flex-start">${dimChip(d)}<span class="small">${LEVELS[levelOf(sc[d])].zh} · ${esc(MEANING[d][band(sc[d])].zh.split('。')[0])}。</span></div>`).join('')}
+      <div class="src">依据：${g.map(d => `<span>${ev(d)}</span>`).join('')}${S.notes.filter(n => g.includes(n.dim)).length ? `<span>${S.notes.filter(n => g.includes(n.dim)).length} 条相关语音</span>` : ''}</div>${acts('growth')}</div>
+    <div class="draft ${C.home ? 'ok' : ''}"><div class="draft-h"><h3>在家 5 分钟小游戏（6）</h3></div>
+      <div class="small muted">${DIMS.map(d => `${d.short.zh}：${HOME[d.id][band(sc[d.id])].t.zh}`).join(' · ')}</div>${acts('home')}</div>
+    <div class="draft ${C.path ? 'ok' : ''}"><div class="draft-h"><h3>推荐学习路径</h3></div>
+      <p class="small"><b>${esc(rec.zh)}</b></p>
+      <div class="src"><span>规则：${esc(rec.rule)}</span><span>高亮 ${lessonPicks(sc).length} 讲相关课次</span></div>${acts('path')}</div>
+    <button class="link small" data-act="confirm-all" style="align-self:center">全部确认</button>
+  </div>
+  <div class="sendbar"><span class="timer-chip" id="revTimer">已确认 ${nOk}/5 · 用时 ${mmss((Date.now() - (S.review.startedAt || Date.now())) / 1000)}</span><button class="btn wx grow" data-act="send" ${nOk === 5 ? '' : 'disabled'}>发送给家长</button></div></div>`;
+};
+
+SCREENS.tsent = () => {
+  const sc = scores(), sm = summary(sc);
+  return `<div class="scr"><div class="bar"><div class="side"><button class="icon-btn" data-act="go" data-to="treview" aria-label="返回">${IC.back}</button></div><h1>已发送</h1><div class="side r"></div></div>
+  <div class="pad stack">
+    <div class="booked"><b>${IC.check} 报告已发送给 Ethan 妈妈</b><span>从生成草稿到发送用时 <b class="num">${mmss(S.review.elapsed || 0)}</b>；讲座 ${SESSION.talk.ends} 结束，还来得及。顾问 Amy 已收到提醒，会在讲座结束后到场解读。</span></div>
+    <b>Ethan 妈妈在微信里收到的样子</b>
+    <div class="wx-chat"><div class="wx-time">10:58</div>
+      <div class="msg"><div class="avatar" style="--c:var(--dim-exp)">${TEACHER.initial}</div><div class="msg-body">
+        <button class="wx-card" data-act="go" data-to="report"><h4>Ethan 的 PreK 成长测评报告</h4><div class="d"><span>${esc(TEACHER.name.zh)}：${esc(sm.zh.slice(0, 34))}…</span><span class="thumb">${radar(sc, { mini: true })}</span></div><div class="from">PreK 成长测评 · 点击查看</div></button>
+      </div></div></div>
+    <button class="btn primary block" data-act="go" data-to="report">以家长身份打开报告 →</button>
+  </div></div>`;
+};
+
+const RT = {
+  zh: { title: 'Ethan 的成长测评报告', meta: '4 岁 3 个月 · 10 月 22 日 · 线下 3 人一组 · 22 分钟', strongest: '最强项', next: '下一步', state: '学习状态', radar: '能力全景', radarSub: '点维度名查看详情', band: '4 岁常见范围（参考）', me: 'Ethan 这次', asked: '你在测前问的', voices: '老师的话', voicesSub: '点语音条听老师原声 · 文字由 AI 整理、老师已确认', clips: '精彩瞬间', clipsSub: '仅你可见 · 90 天后自动删除', noClips: '你没有开启录像授权，本报告不含视频片段。下次测评前可以在预约页开启。', details: '能力详情', saw: '这次看到', means: '这说明什么', home: '在家 5 分钟', qual: '学习品质', nextSec: '下一步', rec: '为 Ethan 推荐', lessons: '学年课里和 Ethan 最相关的几讲', focus: '重点加强', strength: '发挥优势', book: '预约 15 分钟老师解读', trial: '免费试听一节', share: '转发给家人', sub: '每周收到 1 个在家小游戏', about: '关于这次测评', clear: '这份报告清楚吗？', yes: '很清楚', no: '有点难懂', thanks: '谢谢反馈', foot: '示例数据 · 面试作业概念稿，非官方页面。我们会统计报告的打开和点击，用来安排老师跟进。' },
+  en: { title: "Ethan's Growth Snapshot", meta: '4 yrs 3 mos · Oct 22 · In person, group of 3 · 22 min', strongest: 'Top strength', next: 'Next step', state: 'Engagement', radar: 'The big picture', radarSub: 'Tap an area for details', band: 'Typical range at age 4 (reference)', me: 'Ethan this time', asked: 'You asked us', voices: 'From the teacher', voicesSub: "Tap to hear the teacher's own voice · text tidied by AI and approved by the teacher", clips: 'Highlights', clipsSub: 'Only you can see these · auto-deleted after 90 days', noClips: 'Video was not enabled, so this report has no clips. You can turn it on before the next check-in.', details: 'Area by area', saw: 'What we saw', means: 'What it means', home: '5 minutes at home', qual: 'How he learns', nextSec: 'Next step', rec: 'Our suggestion for Ethan', lessons: 'Lessons in the program most relevant to Ethan', focus: 'Build up', strength: 'Stretch a strength', book: 'Book a 15-min chat with the teacher', trial: 'Try a free class', share: 'Share with family', sub: 'Get one home game each week', about: 'About this check-in', clear: 'Was this report clear?', yes: 'Very clear', no: 'A bit confusing', thanks: 'Thanks for the feedback', foot: 'Sample data. An interview concept, not an official page. We count opens and taps on this report to plan teacher follow-up.' },
+};
+function concernAnswer(id, sc) {
+  const l = L(), lv = d => LEVELS[levelOf(sc[d])][l], dn = d => DIM[d].short[l];
+  const core = ['num', 'spa', 'rea'], best = [...core].sort((a, b) => sc[b] - sc[a])[0], worst = [...core].sort((a, b) => sc[a] - sc[b])[0];
+  const rec = recommend(sc), g = growth(sc)[0];
+  const A = {
+    math: { zh: `和数学思维最相关的三项：数感「${lv('num')}」、空间「${lv('spa')}」、推理「${lv('rea')}」。${dn(best)}是他的强项${sc[worst] < 2.75 ? `，${dn(worst)}还在发展中` : ''}。`, en: `The three areas closest to math thinking: Number (${lv('num')}), Spatial (${lv('spa')}), Reasoning (${lv('rea')}). ${dn(best)} is his strength${sc[worst] < 2.75 ? `; ${dn(worst)} is still developing` : ''}.` },
+    focus: { zh: `专注力「${QLEVELS[S.qualities.focus].zh}」：${QUAL.focus.obs.zh}`, en: `Focus: ${QLEVELS[S.qualities.focus].en}. ${QUAL.focus.obs.en}` },
+    talk: { zh: `数学表达「${lv('exp')}」。${sc.exp < 2.75 ? '他会做，但还说不出理由，这是这次最明确的提升点，详见下方「数学表达」。' : '他能把想法讲清楚，详见下方「数学表达」。'}`, en: `Math Talk: ${lv('exp')}. ${sc.exp < 2.75 ? "He can do the tasks but can't yet say why; this is the clearest next step (see Math Talk below)." : 'He explains his thinking well (see Math Talk below).'}` },
+    k: { zh: `按这次表现，建议：${rec.zh}。入学前最值得提前练的是「${dn(g)}」，每天 5 分钟就够。`, en: `Based on this snapshot we suggest: ${rec.en}. The most useful thing to practice before school is ${dn(g)}; five minutes a day is enough.` },
+    adv: rec.id === 'challenge' ? { zh: '可以。多数维度达到「拔尖」，推理也很扎实，适合挑战组。', en: 'Yes. Most areas are at Extending and reasoning is solid, so the challenge group fits.' }
+      : { zh: `暂时建议先上标准学年课：${rec.secure} 个维度已达到「熟练」以上，但${dn(g)}还在发展中。3 个月后复测，再看是否进入挑战组。`, en: `For now we suggest the standard program: ${rec.secure} areas are Secure or above, but ${dn(g)} is still developing. We can re-check in 3 months for the challenge group.` },
+  };
+  return A[id][l];
+}
+SCREENS.report = () => {
+  const l = L(), T = RT[l], sc = scores(), sm = summary(sc), st = strengths(sc), g = growth(sc), rec = recommend(sc);
+  const sumNote = S.notes.find(n => n.id === sm.note) || S.notes.find(n => n.kind === 'summary');
+  const focusTxt = { 3: { zh: '专注 22 分钟', en: 'Focused 22 min' }, 2: { zh: '专注力符合年龄', en: 'Focus on track' }, 1: { zh: '专注力可以多练', en: 'Focus: room to grow' } }[S.qualities.focus][l];
+  const voiceNotes = S.notes.filter(n => n.kind !== 'summary' && n.status === 'done').sort((a, b) => ({ strength: 0, obs: 1, growth: 2 }[a.kind] ?? 1) - ({ strength: 0, obs: 1, growth: 2 }[b.kind] ?? 1));
+  const sumText = l === 'en' ? (sm.en || sm.zh) : sm.zh;
+  const dimCard = d => {
+    const s = sc[d.id], lv = levelOf(s), open = S.openDims.includes(d.id), b = band(s), home = HOME[d.id][b];
+    const ev = ITEMS.filter(i => i.dim === d.id && S.ratings[i.id]).map(i => { const t = TASK[i.task]; const ch = S.chips[t.id].slice(0, 3); return `<li>${l === 'en' ? `Task ${t.id} ${esc(t.titleEn)}` : `Q${t.id} ${esc(t.title)}`}（${esc(i.label)}）：<b>${LEVELS[S.ratings[i.id]][l]}</b>${ch.length && l === 'zh' ? ' · ' + ch.map(esc).join('、') : ''}</li>`; }).join('');
+    const hl = S.consent.video ? S.highlights.filter(h => TASK[h.task].items.some(i => i.dim === d.id)) : [];
+    return `<div class="dimcard ${open ? 'open' : ''}" id="dim-${d.id}" style="--c:${d.color}">
+      <button class="dim-head" data-act="dim" data-dim="${d.id}" aria-expanded="${open}"><span class="dim-dot"></span><span class="dim-name">${esc(d[l])}</span><span class="badge" style="--c:${d.color}">${lv ? LEVELS[lv][l] : '—'}</span>${levelBar(lv || 0, d.color)}${IC.chev}</button>
+      <div class="dim-body">
+        <div class="dim-block"><h4>${T.saw}</h4><ul>${ev}</ul></div>
+        <div class="dim-block"><h4>${T.means}</h4><p class="small">${esc(MEANING[d.id][b][l])}</p></div>
+        <div class="home"><b>${T.home} · ${esc(home.t[l])}</b><p>${esc(home.d[l])}</p><span class="meta">${l === 'en' ? 'You need' : '准备'}：${esc(home.m[l])}</span></div>
+        ${hl.length ? `<div class="clips">${hl.map(h => clip(h, l)).join('')}</div>` : ''}
+      </div></div>`;
+  };
+  const picks = lessonPicks(sc);
+  const days = [{ k: '10/22', zh: '今天', en: 'Today' }, { k: '10/23', zh: '周五', en: 'Fri' }, { k: '10/24', zh: '周六', en: 'Sat' }];
+  return `<div class="scr" style="background:var(--surface-2)">
+  <div class="bar wxbar"><div class="side"><span class="icon-btn">${IC.close}</span></div><h1>${T.title}</h1><div class="side r"><div class="seg" role="group" aria-label="语言"><button class="${l === 'zh' ? 'on' : ''}" data-act="lang" data-l="zh">中</button><button class="${l === 'en' ? 'on' : ''}" data-act="lang" data-l="en">EN</button></div></div></div>
+  <div class="rp-hero">
+    <div class="rp-kid"><div class="avatar lg" style="--c:var(--dim-spa)">E</div><div><div class="rp-name">Ethan</div><div class="rp-meta">${T.meta}</div></div></div>
+    <div class="teacher-say">
+      <div class="avatar" style="--c:var(--dim-exp);width:36px;height:36px;font-size:14px;border-radius:6px">${TEACHER.initial}</div>
+      <div class="msg-body" style="gap:8px">
+        <span class="tiny faint">${esc(TEACHER.name[l])} · ${esc(TEACHER.role[l])}</span>
+        ${sumNote ? `<button class="voice" style="width:150px" data-act="play" data-id="${sumNote.id}" aria-label="播放老师语音">${IC.waves}<span class="dur">${sumNote.dur}″</span>${!sumNote.read ? '<i class="unread"></i>' : ''}</button>` : ''}
+        <p class="summary-text">${esc(sumText)}</p>
+      </div>
+    </div>
+    <div class="key3">
+      <button class="key" data-act="jump" data-dim="${st[0]}" style="--c:${DIM[st[0]].color}"><span class="k">${T.strongest}</span><span class="v">${esc(DIM[st[0]].short[l])}</span></button>
+      <button class="key" data-act="jump" data-dim="${g[0]}" style="--c:${DIM[g[0]].color}"><span class="k">${T.next}</span><span class="v">${esc(DIM[g[0]].short[l])}</span></button>
+      <div class="key"><span class="k">${T.state}</span><span class="v">${focusTxt}</span></div>
+    </div>
+  </div>
+  <div class="rp-sec"><div class="card"><div><div class="sec-title"><span class="mk"></span>${T.radar}</div><div class="sec-sub">${T.radarSub}</div></div>
+    <div class="radar-wrap">${radar(sc, { lang: l })}<div class="legend"><span><i style="background:var(--child);opacity:.6"></i>${T.me}</span><span><i style="background:var(--band);border:1px solid var(--line)"></i>${T.band}</span></div></div></div></div>
+  ${S.q.concerns.length ? `<div class="rp-sec"><div class="card"><div class="sec-title"><span class="mk"></span>${T.asked}</div>${S.q.concerns.map(id => `<div class="concern"><span class="q">${esc(CONCERNS.find(c => c.id === id)[l])}</span><p>${esc(concernAnswer(id, sc))}</p></div>`).join('')}</div></div>` : ''}
+  <div class="rp-sec"><div class="card"><div><div class="sec-title"><span class="mk"></span>${T.voices}</div><div class="sec-sub">${T.voicesSub}</div></div>
+    <div class="thread">${voiceNotes.map(n => voiceBubble(n, 'recv', { lang: l, parent: true, showRaw: true, unread: true })).join('')}</div></div></div>
+  <div class="rp-sec"><div class="card"><div><div class="sec-title"><span class="mk"></span>${T.clips}</div><div class="sec-sub">${S.consent.video ? T.clipsSub : ''}</div></div>
+    ${S.consent.video && S.highlights.length ? `<div class="clips">${S.highlights.map(h => clip(h, l)).join('')}</div><div class="privacy-note">${IC.lock}<span>${l === 'en' ? 'Shared copies of this report never include video.' : '转发给家人的版本不含视频。'}</span></div>` : `<div class="privacy-note">${IC.lock}<span>${T.noClips}</span></div>`}</div></div>
+  <div class="rp-sec"><div class="card" style="gap:0"><div class="sec-title" style="margin-bottom:6px"><span class="mk"></span>${T.details}</div>${DIMS.map(dimCard).join('')}</div></div>
+  <div class="rp-sec"><div class="card" style="gap:0"><div class="sec-title" style="margin-bottom:6px"><span class="mk"></span>${T.qual}</div>${QUALITIES.map(q => `<div class="qline"><span class="n">${esc(q[l])}<small style="color:${S.qualities[q.id] === 3 ? 'var(--good)' : S.qualities[q.id] === 1 ? 'var(--warn)' : 'var(--ink-3)'}">${QLEVELS[S.qualities[q.id]][l]}</small></span><span>${esc(q.obs[l])}</span></div>`).join('')}</div></div>
+  <div class="rp-sec" id="nextSec"><div class="card"><div class="sec-title"><span class="mk" style="background:var(--accent)"></span>${T.nextSec}</div>
+    <div class="rec-card"><span class="k">${T.rec}</span><h3>${esc(rec[l])}</h3><p>${l === 'en' ? `Build up ${g.map(d => DIM[d].en).join(' and ')}; keep stretching ${st.map(d => DIM[d].en).join(' and ')}.` : `重点加强${g.map(d => '「' + DIM[d].zh + '」').join('、')}，同时让${st.map(d => '「' + DIM[d].zh + '」').join('、')}的优势继续往前走。`}</p></div>
+    <div><b class="small">${T.lessons}</b>${picks.map(p => `<div class="lesson"><span class="no"><span class="badge" style="--c:${p.role === 'focus' ? 'var(--accent)' : DIM[p.dim].color}">${p.role === 'focus' ? T.focus : T.strength}</span>${l === 'en' ? (p.term === 'fall' ? 'Fall' : 'Spring') + ' #' + p.no : (p.term === 'fall' ? '秋季' : '春季') + '第 ' + p.no + ' 讲'}</span><span><span class="t">${esc(p.topic)} · ${esc(p.kp[l])}</span><br><span class="w">${esc(p.why[l])}</span></span></div>`).join('')}</div>
+    ${S.booking ? `<div class="booked"><b>${IC.check} ${l === 'en' ? 'Booked' : '已预约'} ${S.booking.day} ${S.booking.time} · ${S.booking.mode === 'onsite' ? (l === 'en' ? 'on site' : '现场面谈') : (l === 'en' ? 'video call' : '视频通话')}</b><span>${l === 'en' ? `${TEACHER.name.en} will cover: Ethan's highlights, how to practice explaining at home, and how the program fits.` : `${TEACHER.name.zh}会和你聊：Ethan 的 3 个高光时刻、在家怎么练表达、学年课怎么安排。`}</span></div>` : ''}
+    <div class="cta-stack">
+      ${S.booking ? '' : `<button class="btn primary block" data-act="book">${T.book}</button>`}
+      <div class="cta-row"><button class="btn ghost" data-act="trial">${S.trial ? (l === 'en' ? 'Spot held' : '已保留名额') : T.trial}</button><button class="btn ghost" data-act="share">${T.share}</button></div>
+      <div class="consent-row" style="align-items:center"><div class="grow small">${T.sub}</div><button class="switch ${S.subscribed ? 'on' : ''}" data-act="sub" role="switch" aria-checked="${S.subscribed}" aria-label="${T.sub}"></button></div>
+    </div></div></div>
+  <div class="rp-sec"><div class="card about"><div class="sec-title"><span class="mk"></span>${T.about}</div>
+    <dl>${l === 'en' ? `<dt>How</dt><dd>A 25-minute game-based booklet in a group of 3; one teacher led and one teacher recorded only Ethan. Ethan could answer in Chinese or English.</dd><dt>Levels</dt><dd>${[4, 3, 2, 1].map(v => `${LEVELS[v].en}: ${LEVELS[v].def.en}`).join('; ')}.</dd><dt>Keep in mind</dt><dd>Four-year-olds vary day to day. This is a snapshot, not a verdict; we re-check in 3 months. No rankings or comparisons with other children.</dd>`
+      : `<dt>怎么测</dt><dd>3 人一组的 25 分钟游戏化题册；主讲老师带题，王老师全程只记录 Ethan。中英文作答都算数。</dd><dt>等级含义</dt><dd>${[4, 3, 2, 1].map(v => `${LEVELS[v].zh}：${LEVELS[v].def.zh}`).join('；')}。</dd><dt>请注意</dt><dd>4 岁孩子每天状态不同，这是一次快照，不是定论；3 个月后可以复测。报告不做排名，也不和别的孩子比较。</dd>`}</dl></div></div>
+  <div class="rp-foot"><div>${T.clear}</div><div class="fb">${S.feedback ? `<span>${T.thanks}</span>` : `<button class="btn sm ghost" data-act="fb" data-v="yes">${T.yes}</button><button class="btn sm ghost" data-act="fb" data-v="no">${T.no}</button>`}</div><div>${T.foot}</div></div>
+  </div>`;
+};
+
+SCREENS.crm = () => {
+  const a = S.an, sent = !!S.review.elapsed;
+  const sig = [];
+  if (!sent && !a.opens) sig.push({ t: '报告还没发送' });
+  if (a.opens) sig.push({ t: `打开 ${a.opens} 次` });
+  const secs = a.seconds + (S.screen === 'report' && a.lastOpen ? (Date.now() - a.lastOpen) / 1000 : 0);
+  if (secs > 3) sig.push({ t: `阅读 ${mmss(secs)}` });
+  if (a.plays) sig.push({ t: `听了 ${a.plays} 次语音`, hot: a.plays >= 2 });
+  if (a.dims.length) sig.push({ t: '展开：' + a.dims.map(d => DIM[d].short.zh).join('、'), hot: a.dims.length >= 2 });
+  if (a.sawNext) sig.push({ t: '看到了「下一步」' });
+  if (S.booking) sig.push({ t: `已预约 ${S.booking.day} ${S.booking.time}`, hot: true });
+  if (S.trial) sig.push({ t: '点了试听', hot: true });
+  if (S.shared) sig.push({ t: '转发给家人', hot: true });
+  if (S.subscribed) sig.push({ t: '订阅了在家小游戏' });
+  const score = (a.opens >= 2) + (secs >= 90) + (a.plays >= 1) + (a.dims.length >= 2) + a.sawNext + (S.booking ? 3 : 0) + (S.trial ? 2 : 0) + S.shared;
+  const intent = score >= 4 ? 'high' : score >= 2 ? 'mid' : a.opens ? 'low' : 'todo';
+  const IN = { high: ['高意向', 'var(--accent)'], mid: ['中意向', 'var(--warn)'], low: ['低意向', 'var(--ink-3)'], todo: ['待跟进', 'var(--ink-3)'] };
+  const concerns = S.q.concerns.map(id => CONCERNS.find(c => c.id === id).zh).join('、') || '未填写';
+  const next = S.booking ? `按预约时间解读。开场先放 Q2 拼火箭片段，再讲「你是怎么知道的」练习。家长测前最关心：${concerns}。`
+    : a.dims.includes('exp') ? `家长看了「数学表达」。讲座结束后在现场找 Ethan 妈妈，从「会做但说不出理由」聊起，邀请预约 15 分钟解读。`
+    : a.opens ? `讲座结束后现场打个招呼，带一句老师原话：「Ethan 的空间感在这组里很突出」。` : '报告发出后，讲座结束时在门口把二维码递给家长。';
+  const lead = (x, isEthan) => {
+    const [label, c] = IN[x.intent] || IN.todo;
+    return `<div class="lead" style="--c:${c}"><div class="row between"><div class="row"><div class="avatar" style="--c:${x.c}">${x.initial}</div><div><h3>${esc(x.name)}</h3><div class="tiny faint">${esc(x.age)} · ${esc(x.sent)}</div></div></div><span class="intent" style="--c:${c}">${label}</span></div>
+      <div class="signals">${x.signals.map(s => typeof s === 'string' ? `<span>${esc(s)}</span>` : `<span class="${s.hot ? 'hot' : ''}">${esc(s.t)}</span>`).join('')}</div>
+      <div class="nextstep"><b>建议下一步</b>${esc(x.next)}</div>
+      ${isEthan ? `<div class="row"><button class="btn sm ghost" data-act="go" data-to="report">查看报告</button><button class="btn sm ghost" data-act="copy-script">复制跟进要点</button></div>` : ''}</div>`;
+  };
+  const ethan = { name: 'Ethan W.', initial: 'E', age: '4 岁 3 个月', c: 'var(--dim-spa)', intent, sent: sent ? '今天 10:58 发送' : '测评中', signals: sig, next };
+  const all = [{ ...ethan, me: 1 }, ...LEADS].sort((x, y) => ['high', 'mid', 'low', 'todo'].indexOf(x.intent) - ['high', 'mid', 'low', 'todo'].indexOf(y.intent));
+  const opened = 1 + (a.opens ? 1 : 0), booked = S.booking ? 1 : 0;
+  return `<div class="scr"><div class="t-head"><div class="tiny faint">课程顾问 · Amy · ${SESSION.group}讲座 ${SESSION.talk.ends} 结束</div><h2>今日跟进</h2></div>
+  <div class="pad stack">
+    <div class="kpis"><div class="kpi"><b>4</b><span>今日报告</span></div><div class="kpi"><b>${opened}</b><span>已读</span></div><div class="kpi"><b>${booked}</b><span>预约解读</span></div><div class="kpi"><b>${all.filter(x => x.intent === 'high').length}</b><span>高意向</span></div></div>
+    ${all.map(x => lead(x, !!x.me)).join('')}
+    <p class="tiny faint">信号只来自报告内的打开和点击，报告底部已告知家长。按意向排序，带着报告里的具体内容去聊。</p>
+  </div></div>`;
+};
+
+/* ---------- guide ---------- */
+const STEP_OF = s => GUIDE.findIndex(g => g.s === s || (g.alias || []).includes(s));
+function renderGuide() {
+  const el = $('#guide'); if (!el) return;
+  const cur = STEP_OF(S.screen), g = GUIDE[cur] || GUIDE[0];
+  const roleCls = { parent: 'role-parent', teacher: 'role-teacher', sales: 'role-sales' }, roleName = { parent: '家长', teacher: '老师', sales: '顾问' };
+  el.innerHTML = `
+    <div class="g-brand"><span class="g-kicker">概念演示 · 面试作业 · 非官方页面</span>
+      <h1 class="g-title">PreK 成长测评<small>把纸质 A+/A/B/C 记录表，变成记录老师边测边记、讲座结束前送到家长手机、30 秒能看懂的成长报告。</small></h1>
+      <div class="g-status"><span class="g-pill ${AI.fn ? 'on' : ''}"><i></i>AI：${AI.fn ? 'Claude 已连接' : AI.state === 'checking' ? '检测中' : '演示模式'}</span><span class="g-pill ${S.micMode === 'mic' ? 'on' : ''}"><i></i>语音：${S.micMode === 'mic' ? '真实麦克风' : '模拟识别'}</span><span class="g-pill"><i></i>示例数据</span></div>${window.DOC_URL ? `<a class="btn sm ink" style="align-self:flex-start;text-decoration:none" href="${window.DOC_URL}">阅读 Design Doc →</a>` : ''}</div>
+    <nav class="g-steps" aria-label="演示步骤">${GUIDE.map((s, i) => `<button class="g-step ${i === cur ? 'active' : ''} ${S.visited[s.s] && i !== cur ? 'done' : ''}" data-act="go" data-to="${s.s}"><span class="g-dot">${i + 1}</span><span class="g-step-body"><span class="g-role"><b class="${roleCls[s.role]}">${roleName[s.role]}</b></span><span class="g-step-title">${esc(s.title)}</span></span></button>`).join('')}</nav>
+    <section class="g-tips"><h3>这一步可以试</h3><ul>${g.tips.map(t => `<li class="try">${esc(t)}</li>`).join('')}</ul><h3>设计要点</h3><ul>${g.why.map(t => `<li>${esc(t)}</li>`).join('')}</ul></section>
+    <div class="g-foot"><button data-act="reset">重置演示数据</button><button class="guide-close btn sm ghost" data-act="guide-close">收起导览</button><span>示例数据，孩子和老师均为虚构。片段以动画代替真实录像。</span></div>`;
+}
+
+/* ---------- render ---------- */
+let revTick;
+function render() {
+  const scr = $('#screen');
+  const same = scr.dataset.s === S.screen, top = scr.scrollTop;
+  scr.innerHTML = SCREENS[S.screen]();
+  scr.dataset.s = S.screen;
+  scr.scrollTop = same ? top : 0;
+  $('#phone').style.setProperty('--status-bg', ['consent', 'report'].includes(S.screen) ? 'var(--surface-3)' : 'var(--surface)');
+  renderGuide();
+  const tb = $('#talkBtn'); if (tb) bindTalk(tb);
+  const ti = $('#talkInput'); if (ti) ti.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); sendText(); } });
+  if (S.screen === 'treview' && !S.review.generated) runGen();
+  clearInterval(revTick);
+  if (S.screen === 'treview' && S.review.generated) revTick = setInterval(() => { const t = $('#revTimer'); if (t) t.textContent = t.textContent.replace(/用时 [\d:]+/, '用时 ' + mmss((Date.now() - S.review.startedAt) / 1000)); }, 1000);
+  if (S.screen === 'report') watchNext();
+  save();
+}
+let genRunning = false;
+async function runGen() {
+  if (genRunning) return; genRunning = true;
+  const steps = [...document.querySelectorAll('#gen .gen-step')];
+  for (const s of steps) { await sleep(420); s.classList.add('done'); }
+  await sleep(300);
+  S.review.generated = true; S.review.startedAt = Date.now(); genRunning = false;
+  if (S.screen === 'treview') render();
+}
+let io;
+function watchNext() {
+  if (io) io.disconnect();
+  const t = $('#nextSec'); if (!t || !('IntersectionObserver' in window)) return;
+  io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { S.an.sawNext = true; save(); io.disconnect(); } }, { root: $('#screen'), threshold: 0.3 });
+  io.observe(t);
+}
+function go(to) {
+  stopPlay();
+  if (S.screen === 'report' && to !== 'report' && S.an.lastOpen) { S.an.seconds += (Date.now() - S.an.lastOpen) / 1000; S.an.lastOpen = null; }
+  if (to === 'report' && S.screen !== 'report') { S.an.opens++; S.an.lastOpen = Date.now(); }
+  S.screen = to; S.visited[to] = 1;
+  closeLayer(); $('#app').classList.remove('guide-open');
+  render();
+}
+
+/* ---------- layer: sheets, toasts ---------- */
+const layer = () => $('#layer');
+function closeLayer() { layer().querySelectorAll('.scrim,.sheet').forEach(n => n.remove()); }
+function sheet(html) { closeLayer(); layer().insertAdjacentHTML('beforeend', `<div class="scrim" data-act="close-sheet"></div><div class="sheet" role="dialog" aria-modal="true"><span class="grab"></span>${html}</div>`); }
+let toastT;
+function toast(msg) {
+  layer().querySelectorAll('.toast').forEach(n => n.remove());
+  layer().insertAdjacentHTML('beforeend', `<div class="toast" role="status">${esc(msg)}</div>`);
+  clearTimeout(toastT); toastT = setTimeout(() => layer().querySelectorAll('.toast').forEach(n => n.remove()), 2200);
+}
+
+/* ---------- voice: record (demo or mic), playback ---------- */
+let REC = null;
+const MIC = { stream: null };
+function hud() {
+  let h = layer().querySelector('.rec-hud');
+  if (!REC) { if (h) h.remove(); return; }
+  if (!h) { layer().insertAdjacentHTML('beforeend', `<div class="rec-hud" aria-live="polite"><div class="rec-wave">${Array.from({ length: 14 }, (_, i) => `<i style="animation-delay:${(i * 0.07).toFixed(2)}s"></i>`).join('')}</div><div class="rec-text"></div><div class="rec-time"></div><div class="rec-hint"></div></div>`); h = layer().querySelector('.rec-hud'); }
+  h.classList.toggle('cancel', REC.cancel);
+  h.querySelector('.rec-text').textContent = REC.text || '正在听…';
+  h.querySelector('.rec-time').textContent = mmss((performance.now() - REC.t0) / 1000);
+  h.querySelector('.rec-hint').textContent = REC.cancel ? '松开手指，取消发送' : '松开 发送 · 上滑 取消';
+}
+function recStart() {
+  if (REC) return;
+  REC = { t0: performance.now(), cancel: false, text: '', task: S.task };
+  if (S.micMode === 'mic' && MIC.stream) {
+    try {
+      REC.chunks = []; REC.mr = new MediaRecorder(MIC.stream);
+      REC.mr.ondataavailable = e => e.data.size && REC && REC.chunks.push(e.data);
+      REC.mr.start();
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SR) { const r = new SR(); r.lang = 'zh-CN'; r.interimResults = true; r.continuous = true; r.onresult = e => { if (!REC) return; REC.text = [...e.results].map(x => x[0].transcript).join(''); hud(); }; try { r.start(); } catch (e) { /* ignore */ } REC.sr = r; }
+    } catch (e) { S.micMode = 'demo'; }
+  }
+  if (S.micMode !== 'mic' || !REC.mr) {
+    const list = DEMO_SCRIPTS[REC.task] || DEMO_SCRIPTS.wrap;
+    const i = (S.scriptIdx[REC.task] || 0) % list.length;
+    REC.script = list[i]; let k = 0;
+    REC.typer = setInterval(() => { if (!REC) return; k += 2; REC.text = REC.script.raw.slice(0, k); hud(); if (k >= REC.script.raw.length) clearInterval(REC.typer); }, 110);
+  }
+  REC.clock = setInterval(hud, 250); hud();
+}
+function recStop() {
+  const r = REC; if (!r) return; REC = null;
+  clearInterval(r.typer); clearInterval(r.clock); hud();
+  const held = (performance.now() - r.t0) / 1000;
+  const finish = (fn) => { if (r.sr) try { r.sr.stop(); } catch (e) { /* ignore */ } if (r.mr && r.mr.state !== 'inactive') { r.mr.onstop = fn; r.mr.stop(); } else fn(); };
+  if (r.cancel) { finish(() => {}); toast('已取消'); return; }
+  if (held < 0.6) { finish(() => {}); toast('说话时间太短'); return; }
+  if (r.script) {
+    S.scriptIdx[r.task] = (S.scriptIdx[r.task] || 0) + 1;
+    const n = { id: uid(), task: r.task, dim: r.script.dim, kind: r.script.kind, raw: r.script.raw, dur: Math.max(2, Math.round(r.script.raw.length / 4.6)), status: 'pending', source: 'demo', script: r.script };
+    S.notes.push(n); render(); scrollToEnd(); polish(n); return;
+  }
+  finish(() => {
+    const url = r.chunks && r.chunks.length ? URL.createObjectURL(new Blob(r.chunks, { type: r.mr.mimeType || 'audio/webm' })) : null;
+    const n = { id: uid(), task: r.task, dim: null, kind: null, raw: r.text || '', dur: Math.max(1, Math.round(held)), status: 'pending', source: 'mic', audioUrl: url };
+    S.notes.push(n); render(); scrollToEnd(); polish(n);
+  });
+}
+function scrollInScreen(el, where) {
+  const scr = $('#screen'); if (!el || !scr) return;
+  const r = el.getBoundingClientRect(), sr = scr.getBoundingClientRect();
+  const top = where === 'end' ? scr.scrollTop + r.bottom - sr.bottom + 90 : scr.scrollTop + r.top - sr.top - 56;
+  scr.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+}
+function scrollToEnd() { const th = document.querySelectorAll('#screen .thread'); scrollInScreen(th[th.length - 1], 'end'); }
+function bindTalk(btn) {
+  let y0 = 0;
+  btn.addEventListener('pointerdown', e => { e.preventDefault(); try { btn.setPointerCapture(e.pointerId); } catch (x) { /* ignore */ } y0 = e.clientY; btn.classList.add('down'); btn.textContent = '松开 结束'; stopPlay(); recStart(); });
+  btn.addEventListener('pointermove', e => { if (!REC) return; const c = y0 - e.clientY > 60; if (c !== REC.cancel) { REC.cancel = c; hud(); } });
+  const end = () => { btn.classList.remove('down'); btn.textContent = '按住 说话'; recStop(); };
+  btn.addEventListener('pointerup', end);
+  btn.addEventListener('pointercancel', () => { if (REC) REC.cancel = true; end(); });
+  btn.addEventListener('keydown', e => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) { e.preventDefault(); if (!REC) { btn.textContent = '再按一次 结束'; recStart(); } else end(); } });
+}
+function sendText() {
+  const i = $('#talkInput'); const v = i && i.value.trim(); if (!v) return;
+  const n = { id: uid(), task: S.task, dim: null, kind: null, raw: v, dur: Math.max(2, Math.round(v.length / 4.6)), status: 'pending', source: 'typed' };
+  S.notes.push(n); render(); scrollToEnd(); polish(n);
+}
+let PLAY = null;
+function stopPlay() {
+  if (!PLAY) return;
+  const p = PLAY; PLAY = null;
+  clearTimeout(p.timer);
+  if (p.audio) { p.audio.pause(); }
+  try { if ('speechSynthesis' in window) speechSynthesis.cancel(); } catch (e) { /* ignore */ }
+  document.querySelectorAll('.voice.playing').forEach(v => v.classList.remove('playing'));
+}
+function playNote(id, el) {
+  const was = PLAY && PLAY.id;
+  stopPlay();
+  if (was === id) return;
+  const n = S.notes.find(x => x.id === id); if (!n) return;
+  el.classList.add('playing'); n.read = true; const u = el.querySelector('.unread'); if (u) u.remove();
+  if (S.screen === 'report') S.an.plays++;
+  PLAY = { id };
+  const done = () => { if (PLAY && PLAY.id === id) stopPlay(); };
+  PLAY.timer = setTimeout(done, (n.dur + 1.5) * 1000);
+  if (n.audioUrl) { const a = new Audio(n.audioUrl); PLAY.audio = a; a.onended = done; a.play().catch(done); }
+  else {
+    try {
+      if ('speechSynthesis' in window) {
+        const ut = new SpeechSynthesisUtterance(n.raw); ut.lang = 'zh-CN'; ut.rate = 1.05;
+        const v = speechSynthesis.getVoices().find(x => /zh[-_](CN|Hans)/i.test(x.lang)); if (v) ut.voice = v;
+        ut.onend = done; speechSynthesis.cancel(); speechSynthesis.speak(ut);
+        clearTimeout(PLAY.timer); PLAY.timer = setTimeout(done, Math.max(n.dur, n.raw.length / 3.5) * 1000 + 2000);
+      }
+    } catch (e) { /* timer still ends it */ }
+  }
+  save();
+}
+try { if ('speechSynthesis' in window) speechSynthesis.getVoices(); } catch (e) { /* ignore */ }
+
+/* ---------- actions ---------- */
+function act(a, el) {
+  const d = el.dataset;
+  switch (a) {
+    case 'go': return go(d.to);
+    case 'q': {
+      const g = d.g;
+      if (g === 'lang') S.q.lang = d.id;
+      else { const arr = S.q[g]; const i = arr.indexOf(d.id); if (i >= 0) arr.splice(i, 1); else { arr.push(d.id); if (g === 'concerns' && arr.length > 2) arr.shift(); } }
+      return render();
+    }
+    case 'consent': S.consent[d.k] = !S.consent[d.k]; return render();
+    case 'submit-consent': S.consent.submitted = true; toast(S.consent.video ? '已提交 · 已授权录制精彩片段' : '已提交 · 未授权录像'); return render();
+    case 'task': S.task = d.n === 'wrap' ? 'wrap' : +d.n; render(); $('#screen').scrollTop = 0; return;
+    case 'prev': if (S.task !== 'wrap' && S.task > 1) { S.task--; render(); $('#screen').scrollTop = 0; } return;
+    case 'next': S.task = S.task === 11 ? 'wrap' : S.task + 1; render(); $('#screen').scrollTop = 0; return;
+    case 'rate': S.ratings[d.item] = +d.lv; resetReview(); return render();
+    case 'chip': { const arr = S.chips[S.task]; const i = arr.indexOf(d.c); if (i >= 0) arr.splice(i, 1); else arr.push(d.c); return render(); }
+    case 'qual': S.qualities[d.q] = +d.v; resetReview(); return render();
+    case 'kbd': S.kbd = !S.kbd; render(); if (S.kbd) { const i = $('#talkInput'); if (i) i.focus(); } return;
+    case 'send-text': return sendText();
+    case 'mic': return toggleMic();
+    case 'plus': return plusSheet();
+    case 'mark-hl': {
+      closeLayer();
+      if (!S.consent.video) return toast('家长未授权录像，不能保存片段');
+      const t = TASK[S.task]; if (!t) return toast('请在具体题目里标记');
+      S.highlights.push({ id: uid(), task: t.id, scene: t.scene || 'generic' }); toast('已保存前 20 秒片段，会出现在家长报告的「精彩瞬间」'); return render();
+    }
+    case 'upload-video': { closeLayer(); if (!S.consent.video) return toast('家长未授权录像，不能上传片段'); $('#vidInput').click(); return; }
+    case 'close-sheet': return closeLayer();
+    case 'generate': S.review.generated = false; S.review.confirmed = {}; return go('treview');
+    case 'confirm': S.review.confirmed[d.k] = true; return render();
+    case 'unconfirm': delete S.review.confirmed[d.k]; return render();
+    case 'confirm-all': ['summary', 'strengths', 'growth', 'home', 'path'].forEach(k => (S.review.confirmed[k] = true)); return render();
+    case 'edit': S.review.editing = true; render(); { const t = $('#editArea'); if (t) t.focus(); } return;
+    case 'cancel-edit': S.review.editing = false; return render();
+    case 'save-edit': { const v = $('#editArea').value.trim(); if (v) { S.review.edit = { zh: v, en: null, note: summary(scores()).note }; } S.review.editing = false; delete S.review.confirmed.summary; return render(); }
+    case 'rewrite': return aiRewriteSummary();
+    case 'send': return sendSheet();
+    case 'send-via': closeLayer(); S.review.elapsed = (Date.now() - S.review.startedAt) / 1000; return go('tsent');
+    case 'play': return playNote(d.id, el);
+    case 'raw': S._raw = S._raw === d.id ? null : d.id; return render();
+    case 'lang': S.lang = d.l; return render();
+    case 'dim': { const i = S.openDims.indexOf(d.dim); if (i >= 0) S.openDims.splice(i, 1); else { S.openDims.push(d.dim); if (!S.an.dims.includes(d.dim)) S.an.dims.push(d.dim); } return render(); }
+    case 'jump': {
+      if (S.screen !== 'report') return;
+      if (!S.openDims.includes(d.dim)) S.openDims.push(d.dim);
+      if (!S.an.dims.includes(d.dim)) S.an.dims.push(d.dim);
+      render(); scrollInScreen($('#dim-' + d.dim), 'start'); return;
+    }
+    case 'scene': { const sc = el.closest('.scene'); sc.classList.remove('playing'); void sc.offsetWidth; sc.classList.add('playing'); clearTimeout(sc._t); sc._t = setTimeout(() => sc.classList.remove('playing'), 6500); return; }
+    case 'book': return bookSheet();
+    case 'slot': S._slot = { day: d.day, time: d.time }; layer().querySelectorAll('.slot').forEach(s => s.classList.toggle('on', s === el)); { const b = $('#bookGo'); if (b) b.disabled = false; } return;
+    case 'mode': S._mode = d.m; layer().querySelectorAll('[data-act="mode"]').forEach(s => s.classList.toggle('on', s === el)); return;
+    case 'book-confirm': if (!S._slot) return; S.booking = { ...S._slot, mode: S._mode || 'onsite' }; closeLayer(); toast(L() === 'en' ? 'Booked. The teacher will see you then.' : '已预约，老师会准时和你聊'); return render();
+    case 'trial': S.trial = true; toast(L() === 'en' ? 'A trial spot is held for Ethan' : '已为 Ethan 保留试听名额'); return render();
+    case 'share': S.shared = true; return shareSheet();
+    case 'copy': { const txt = d.text; try { navigator.clipboard.writeText(txt).then(() => toast('已复制'), () => toast('复制失败，请手动选择文字')); } catch (e) { toast('复制失败，请手动选择文字'); } return; }
+    case 'copy-script': {
+      const sc = scores(), st = strengths(sc), g = growth(sc);
+      const txt = `Ethan 跟进要点：强项 ${st.map(x => DIM[x].zh).join('、')}；下一步 ${g.map(x => DIM[x].zh).join('、')}；家长关心 ${S.q.concerns.map(id => CONCERNS.find(c => c.id === id).zh).join('、')}；推荐 ${recommend(sc).zh}。`;
+      try { navigator.clipboard.writeText(txt).then(() => toast('跟进要点已复制'), () => toast(txt)); } catch (e) { toast(txt); } return;
+    }
+    case 'sub': S.subscribed = !S.subscribed; return render();
+    case 'fb': S.feedback = d.v; return render();
+    case 'reset': stopPlay(); S = fresh(); toast('演示数据已重置'); closeLayer(); return render();
+    case 'guide-open': return $('#app').classList.add('guide-open');
+    case 'guide-close': return $('#app').classList.remove('guide-open');
+  }
+}
+function resetReview() { S.review.confirmed = {}; S.review.summary = null; S.review.edit = null; }
+async function toggleMic() {
+  if (S.micMode === 'mic') { S.micMode = 'demo'; toast('已切换为示例语音'); return render(); }
+  try {
+    if (!navigator.mediaDevices || !window.MediaRecorder) throw new Error('unsupported');
+    MIC.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    S.micMode = 'mic'; toast('麦克风已开启：录音会保存原声，Chrome / Safari 支持实时转写');
+  } catch (e) { S.micMode = 'demo'; toast('当前环境不能使用麦克风（发布的页面不开放麦克风），继续用示例语音'); }
+  render();
+}
+function plusSheet() {
+  sheet(`<h3>更多</h3>
+    <button class="btn block ${S.consent.video ? 'wx' : ''}" data-act="mark-hl">标记精彩瞬间（保存前 20 秒）</button>
+    <button class="btn block ghost" data-act="upload-video">拍摄 / 上传一段视频</button>
+    <p class="tiny faint">${S.consent.video ? '家长已授权录像。片段仅家长和记录老师可见，90 天后自动删除。' : '家长未授权录像，片段功能不可用。可回到第 1 步打开授权。'}</p>
+    <button class="btn block ghost" data-act="close-sheet">取消</button>`);
+}
+function sendSheet() {
+  sheet(`<h3>发送给 Ethan 妈妈</h3>
+    <div class="share-opts"><button data-act="send-via"><span class="ic wx">微</span>微信</button><button data-act="send-via"><span class="ic">信</span>短信</button><button data-act="send-via"><span class="ic">@</span>邮件</button><button data-act="send-via"><span class="ic">∞</span>复制链接</button></div>
+    <p class="tiny faint">一个链接，微信、Safari、WhatsApp 都能直接打开，不需要下载 App。顾问 Amy 会同步收到提醒。</p>`);
+}
+function bookSheet() {
+  const l = L();
+  const days = [{ k: '10/22', zh: '今天', en: 'Today', t: ['11:15', '11:30', '11:45'] }, { k: '10/23', zh: '周五', en: 'Fri', t: ['16:00', '19:30', '20:00'] }, { k: '10/24', zh: '周六', en: 'Sat', t: ['10:00', '10:30', '14:00'] }];
+  S._slot = null; S._mode = 'onsite';
+  sheet(`<h3>${l === 'en' ? 'Book a 15-min chat' : '预约 15 分钟老师解读'}</h3>
+    <div class="seg" style="align-self:flex-start"><button class="on" data-act="mode" data-m="onsite">${l === 'en' ? 'On site' : '现场面谈'}</button><button data-act="mode" data-m="video">${l === 'en' ? 'Video call' : '视频通话'}</button></div>
+    ${days.map(dy => `<div class="stack" style="gap:6px"><span class="small faint">${dy.k} ${dy[l]}${dy.k === '10/22' ? (l === 'en' ? ' · right after the talk' : ' · 讲座结束后') : ''}</span><div class="slots">${dy.t.map(t => `<button class="slot" data-act="slot" data-day="${dy.k}" data-time="${t}">${t}</button>`).join('')}</div></div>`).join('')}
+    <p class="tiny faint">${l === 'en' ? "You'll talk with the teacher who watched Ethan's session." : '和全程记录 Ethan 的王老师聊，不是电话销售。'}</p>
+    <button class="btn primary block" id="bookGo" data-act="book-confirm" disabled>${l === 'en' ? 'Confirm' : '确认预约'}</button>`);
+}
+function shareSheet() {
+  const l = L(), sc = scores(), link = 'https://example.com/r/ethan-7Kq2';
+  sheet(`<h3>${l === 'en' ? 'Share with family' : '转发给家人'}</h3>
+    <div class="wx-chat" style="padding:12px"><div class="msg"><div class="avatar" style="--c:var(--accent)">妈</div><div class="msg-body"><div class="wx-card"><h4>${esc(RT[l].title)}</h4><div class="d"><span>${esc(summary(sc)[l] || summary(sc).zh).slice(0, 36)}…</span><span class="thumb">${radar(sc, { mini: true })}</span></div><div class="from">PreK ${l === 'en' ? 'Growth Snapshot' : '成长测评'}</div></div></div></div></div>
+    <p class="tiny faint">${l === 'en' ? 'The shared copy has the summary, chart and home games, but no video.' : '分享版包含总结、雷达图和在家小游戏，不含视频片段。'}</p>
+    <div class="copybox"><code>${link}</code><button class="btn sm ghost" data-act="copy" data-text="${link}">${l === 'en' ? 'Copy' : '复制'}</button></div>`);
+}
+
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]');
+  if (!el || el.disabled) return;
+  act(el.dataset.act, el);
+});
+document.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('g[data-act]')) { e.preventDefault(); act(e.target.dataset.act, e.target); }
+  if (e.key === 'Escape') closeLayer();
+});
+document.addEventListener('change', e => {
+  if (e.target.id === 'vidInput' && e.target.files[0]) {
+    const url = URL.createObjectURL(e.target.files[0]);
+    S.highlights.push({ id: uid(), task: S.task === 'wrap' ? 11 : S.task, url });
+    e.target.value = ''; toast('片段已保存，会出现在家长报告里'); render();
+  }
+});
+window.addEventListener('beforeunload', () => { if (S.screen === 'report' && S.an.lastOpen) { S.an.seconds += (Date.now() - S.an.lastOpen) / 1000; S.an.lastOpen = Date.now(); } save(); });
+
+const firstVisit = !load();
+/* Direct links: #parent #teacher #review #report #consultant open one view (for sharing a single screen in WeChat). */
+const HASH = { parent: 'consent', consent: 'consent', teacher: 'tlist', review: 'treview', report: 'report', consultant: 'crm', crm: 'crm' };
+const h = (location.hash || '').slice(1);
+if (HASH[h]) {
+  if (['report', 'crm'].includes(HASH[h])) { S.consent.video = true; S.consent.submitted = true; if (!S.review.elapsed) { S.review.generated = true; S.review.elapsed = 96; ['summary', 'strengths', 'growth', 'home', 'path'].forEach(k => (S.review.confirmed[k] = true)); } }
+  if (HASH[h] === 'report' && S.screen !== 'report') { S.an.opens++; }
+  S.screen = HASH[h]; S.visited[S.screen] = 1;
+}
+if (S.screen === 'report') S.an.lastOpen = Date.now();
+render();
+if (firstVisit && !HASH[h] && window.matchMedia('(max-width: 980px)').matches) $('#app').classList.add('guide-open');
+})();
+
+</script>
+
+</body>
+</html>
